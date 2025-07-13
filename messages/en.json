@@ -1,0 +1,37 @@
+{
+    "Header": {
+        "Home": "Home",
+        "About": "About",
+        "Contact": "Contact"
+    },
+    "Home": {
+        "title": "Welcome to Raj Dev Blog"
+    },
+    "Logo": {
+        "title": "Raj Dev Blog"
+    },
+    "tags": {
+        "web-development": "Web Development",
+        "productivity": "Productivity",
+        "code-quality": "Code Quality",
+        "javascript": "JavaScript",
+        "css": "CSS",
+        "tailwind": "Tailwind",
+        "pwa": "PWA",
+        "all": "All"
+    },
+    "categoryPage": {
+        "discoverMore": "Discover more categories and expand your knowledge!"
+    },
+    "RecentPosts": {
+        "Recent-Posts": "Recent Posts",
+        "view-all": "view all"
+    },
+    "About": {
+        "title": "About Me",
+        "description": "Here are some details about myself.",
+        "haveProject": "Have a project in mind? Reach out to me 📞 from",
+        "contactLink": "here",
+        "letsMakeItHappen": "and let's make it happen."
+    }
+}
