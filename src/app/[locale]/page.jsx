@@ -8,6 +8,7 @@ import { routing } from "@/src/i18n/routing";
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
 export const metadata = {
   title: "Raj Dev Blog | Frontend Articles, Tutorials & More",
   description:

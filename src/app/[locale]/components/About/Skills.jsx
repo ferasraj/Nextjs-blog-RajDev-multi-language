@@ -1,21 +1,24 @@
+import { useTranslations } from "next-intl";
 const SkillList = [
-  "next.js",
-  "React.js",
-  "tailwind css",
+  "nextjs",
+  "reactjs",
+  "tailwind",
   "figma",
-  "javaScript",
-  "web design",
-  "Gatsby.js",
+  "javascript",
+  "webDesign",
+  "gatsby",
   "strapi",
   "firebase",
-  "generative AI",
+  "generativeAi",
   "wireframing",
-  "SEO",
-  "framer motion",
+  "seo",
+  "framerMotion",
   "sanity",
 ];
 
 const Skills = () => {
+  const t = useTranslations("Skills");
+
   return (
     <section
       className="w-full flex flex-col p-5 xs:p-10 sm:p-12 md:p-16 lg:p-20 border-b-2 
@@ -23,10 +26,10 @@ const Skills = () => {
      text-dark dark:text-light"
     >
       <span className="font-semibold text-lg sm:text-3xl md:text-4xl text-accent dark:text-accentDark">
-        I'm comfortable in...
+        {t("title")}
       </span>
       <ul className="flex flex-wrap mt-8 justify-center  xs:justify-start">
-        {SkillList.map((item, index) => {
+        {SkillList.map((key, index) => {
           return (
             <li
               key={index}
@@ -36,7 +39,7 @@ const Skills = () => {
               md:mr-6 md:mb-6 hover:scale-105 transition-all ease duration-200 cursor-pointer 
               dark:font-normal"
             >
-              {item}
+              {t(`items.${key}`)}
             </li>
           );
         })}

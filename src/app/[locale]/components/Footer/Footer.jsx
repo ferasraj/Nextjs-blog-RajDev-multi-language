@@ -1,14 +1,17 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
-import Link from "next/link";
 import { DribbbleIcon, GithubIcon, LinkedinIcon, XIcon } from "../Icons";
 import siteMetadata from "@/src/utils/siteMetaData";
+import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 const logoClassName =
   "inline-block h-6 w-6 mr-4 hover:scale-125 transition-all ease duration-200";
 
-const Footer = () => {
+const Footer = ({ locale }) => {
+  const t = useTranslations("Footer");
+
   const {
     register,
     handleSubmit,
@@ -19,6 +22,7 @@ const Footer = () => {
 
   return (
     <footer
+      dir={locale === "ar" ? "rtl" : "ltr"} // ✅ أضف هذا السطر هنا
       className={twMerge(
         "mt-16 rounded-2xl bg-dark dark:bg-accentDark/90 m-2 sm:m-10",
         "flex flex-col items-center text-light dark:text-dark"
@@ -30,7 +34,7 @@ const Footer = () => {
           "text-2xl sm:text-3xl lg:text-4xl px-4"
         )}
       >
-        Interesting Stories | Updates | Guides
+        {t("newsletter.title")}
       </h3>
       <p
         className={twMerge(
@@ -38,8 +42,7 @@ const Footer = () => {
           "font-light dark:font-medium text-sm sm:text-base"
         )}
       >
-        Subscribe to learn about new technology and updates. Join over 5000+
-        members community to stay up to date with latest news.
+        {t("newsletter.description")}
       </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -50,7 +53,7 @@ const Footer = () => {
       >
         <input
           type="email"
-          placeholder="Enter your email"
+          placeholder={t("newsletter.placeholder")}
           {...register("email", { required: true, maxLength: 80 })}
           className={twMerge(
             "w-full bg-transparent pl-2 sm:pl-0 text-dark focus:border-dark",
@@ -60,6 +63,7 @@ const Footer = () => {
 
         <input
           type="submit"
+          value={t("newsletter.subscribeBtn")}
           className={twMerge(
             "bg-dark text-light dark:text-dark dark:bg-light cursor-pointer",
             "font-medium rounded px-3 sm:px-5 py-1"
@@ -111,8 +115,8 @@ const Footer = () => {
           " border-light py-6 px-8 flex  flex-col md:flex-row items-center justify-between"
         )}
       >
-        <span className="text-center dark:font-semibold">
-          &copy;2025 RajDev. All rights reserved.
+        <span className={twMerge("text-center dark:font-semibold")}>
+          {t("copyright")}
         </span>
         <a
           href="/sitemap.xml"
@@ -123,15 +127,16 @@ const Footer = () => {
           sitemap.xml
         </a>
 
-        <div className="text-center dark:font-semibold">
-          Made with{" "}
-          <span className="text-red-500 text-xl font-bold">&hearts;</span> by{" "}
+        <div className={cn("text-center dark:font-semibold")}>
+          {t("madeWith")}{" "}
+          <span className="text-red-500 text-xl font-bold">&hearts;</span>{" "}
+          {t("by")}{" "}
           <a
             href="https://nextjs-blog-raj-dev-gfm9.vercel.app"
             className="underline"
             target="_blank"
           >
-            Raj Dev.
+            Raj Dev
           </a>
         </div>
       </div>

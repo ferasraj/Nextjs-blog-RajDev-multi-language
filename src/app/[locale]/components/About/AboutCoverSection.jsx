@@ -1,8 +1,11 @@
 import Image from "next/image";
 import profileCharacter from "@/public/character.png";
 import { twMerge } from "tailwind-merge";
+import { useTranslations } from "next-intl";
 
-const AboutCoverSection = () => {
+const AboutCoverSection = ({ locale }) => {
+  const t = useTranslations("About");
+
   return (
     <section
       className={twMerge(
@@ -11,8 +14,11 @@ const AboutCoverSection = () => {
       )}
     >
       <div
-        className="w-full md:w-1/2 h-full border-r-2 
-      border-solid border-dark dark:border-light flex justify-center"
+        className={twMerge(
+          "w-full md:w-1/2 h-full ",
+          " border-solid border-dark dark:border-light flex justify-center ",
+          locale === "ar" ? "border-l-2" : "border-r-2"
+        )}
       >
         <Image
           src={profileCharacter}
@@ -24,18 +30,30 @@ const AboutCoverSection = () => {
       </div>
 
       <div
-        className="w-full md:w-1/2 flex flex-col text-left items-start 
-      justify-center px-5 xs:p-10 pb-10 lg:px-16"
+        className={twMerge(
+          "w-full md:w-1/2 flex flex-col text-left items-start",
+          "justify-center px-5 xs:p-10 pb-10 lg:px-16",
+          locale === "ar" ? "text-right" : ""
+        )}
       >
-        <h2 className="font-bold capitalize text-4xl xs:text-5xl xl:text-6xl  text-center lg:text-left">
-          Dream Big, Work Hard, Achieve More!
+        <h2
+          className={twMerge(
+            "font-bold capitalize text-4xl xs:text-5xl xl:text-6xl",
+            "text-center lg:text-left leading-[10rem]",
+            locale === "ar"
+              ? "lg:text-right leading-[4rem] xl:text-[55px]"
+              : "leading-tight"
+          )}
+        >
+          {t("mantraTitle")}
         </h2>
-        <p className="font-medium capitalize mt-4 text-base">
-          This Mantra Drives My Work As A Passionate Freelancer. I Blend
-          Innovative Technology With Timeless Design For Captivating Digital
-          Experiences. Inspired By Nature And Literature, I'm A Perpetual
-          Learner Embracing Challenges. With Each Project, I Aim To Leave A
-          Lasting Impact—One Pixel At A Time.
+        <p
+          className={twMerge(
+            "font-medium capitalize mt-4 text-base",
+            locale === "ar" ? "font-tajawal font-semibold" : ""
+          )}
+        >
+          {t("mantraDescription")}{" "}
         </p>
       </div>
     </section>

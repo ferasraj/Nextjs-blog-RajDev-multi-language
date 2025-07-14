@@ -1,7 +1,5 @@
 import { twJoin } from "tailwind-merge";
 import "./globals.css";
-import { Inter, Manrope } from "next/font/google";
-import { Cairo, Tajawal } from "next/font/google";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import siteMetadata from "@/src/utils/siteMetaData";
@@ -10,32 +8,6 @@ import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { themeScript } from "./components/Hooks/themeScript";
-import Script from "next/script";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-in",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-mr",
-});
-
-const cairo = Cairo({
-  subsets: ["arabic", "latin"],
-  display: "swap",
-  variable: "--font-cairo",
-});
-
-const tajawal = Tajawal({
-  subsets: ["arabic", "latin"],
-  weight: ["400", "700"], // ✅ حدد الأوزان اللي بتستخدمها
-  display: "swap",
-  variable: "--font-tajawal",
-});
 
 export const metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -90,12 +62,6 @@ export default async function RootLayout({ children, params }) {
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={twJoin(
-        inter.variable,
-        manrope.variable,
-        locale === "ar" && cairo.variable,
-        locale === "ar" && tajawal.variable
-      )}
       suppressHydrationWarning
     >
       <head>
@@ -117,3 +83,5 @@ export default async function RootLayout({ children, params }) {
     </html>
   );
 }
+
+export const dynamic = "force-dynamic";

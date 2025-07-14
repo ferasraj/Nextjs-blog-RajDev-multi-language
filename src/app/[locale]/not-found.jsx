@@ -1,6 +1,11 @@
-import Link from "next/link";
+// "use client";
+
+import { useLocale } from "next-intl";
+// import Link from "next/link";
 
 export default function NotFound() {
+  const locale = useLocale(); // استخدم الهوك الخاص بـ next-intl للحصول على اللغة الحالية
+
   return (
     <main className="my-32 w-full dark:bg-dark flex justify-center font-mr">
       <div className="relative flex flex-col items-center justify-center">
@@ -16,15 +21,15 @@ export default function NotFound() {
         >
           Page Not Found!
         </h2>
-        <Link
-          href="/"
+        <a
+          href={`/${locale}`}
           className="self-center mt-8 inline-block rounded-lg border-2 border-solid bg-dark px-4 py-2
-        font-semibold text-light hover:border-dark hover:bg-light hover:text-dark 
+        font-semibold text-light hover:border-dark hover:bg-light hover:text-dark
         dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light
         "
         >
           Go To Home Page
-        </Link>
+        </a>
       </div>
     </main>
   );

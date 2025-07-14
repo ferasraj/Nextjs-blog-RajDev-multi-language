@@ -28,10 +28,65 @@
         "view-all": "view all"
     },
     "About": {
-        "title": "About Me",
-        "description": "Here are some details about myself.",
         "haveProject": "Have a project in mind? Reach out to me 📞 from",
         "contactLink": "here",
-        "letsMakeItHappen": "and let's make it happen."
+        "letsMakeItHappen": "and let's make it happen.",
+        "mantraTitle": "Dream Big, Work Hard, Achieve More!",
+        "mantraDescription": "This mantra drives my work as a passionate freelancer. I blend innovative technology with timeless design for captivating digital experiences. Inspired by nature and literature, I'm a perpetual learner embracing challenges. With each project, I aim to leave a lasting impact—one pixel at a time."
+    },
+    "Contact": {
+        "title": "Let's Connect!",
+        "name": "Hello! My name is",
+        "namePlaceholder": "your name",
+        "emailIntro": "and I want to discuss a potential project. You can email me at",
+        "emailPlaceholder": "your@email",
+        "phoneIntro": "or reach out to me on",
+        "phonePlaceholder": "your phone",
+        "detailsIntro": "Here are some details about my project:",
+        "detailsPlaceholder": "my project is about...",
+        "submit": "send request"
+    },
+    "Skills": {
+        "title": "I'm comfortable in...",
+        "items": {
+            "nextjs": "Next.js",
+            "reactjs": "React.js",
+            "tailwind": "Tailwind CSS",
+            "figma": "Figma",
+            "javascript": "JavaScript",
+            "webDesign": "Web Design",
+            "gatsby": "Gatsby.js",
+            "strapi": "Strapi",
+            "firebase": "Firebase",
+            "generativeAi": "Generative AI",
+            "wireframing": "Wireframing",
+            "seo": "SEO",
+            "framerMotion": "Framer Motion",
+            "sanity": "Sanity"
+        }
+    },
+    "Insights": {
+        "projectsCompleted": "20+ Projects Completed",
+        "yearsFreelancing": "3+ Years of Freelancing",
+        "clientSatisfaction": "99% Client Satisfaction",
+        "subscribers": "20K+ Subscribers",
+        "educativeCourse": "Authored In-Depth Course on Educative",
+        "technicalReviewer": "Contributed as a Technical Course Reviewer 📝",
+        "hackernoonAward": "Recipient of the Hackernoon Noonies Award 🏆"
+    },
+    "Footer": {
+        "newsletter": {
+            "title": "Interesting Stories | Updates | Guides",
+            "description": "Subscribe to learn about new technology and updates. Join over 5000+ members community to stay up to date with latest news.",
+            "placeholder": "Enter your email",
+            "subscribeBtn": "Subscribe"
+        },
+        "copyright": "©2025 RajDev. All rights reserved.",
+        "madeWith": "Made with",
+        "by": "by"
+    },
+    "NotFound": {
+        "title": "Page Not Found!",
+        "goHome": "Go To Home Page"
     }
 }

@@ -6,4 +6,5 @@ export const routing = defineRouting({
 
   // Used when no locale matches
   defaultLocale: "en",
+  // localePrefix: "always", // أو 'always' إذا كنت تريد ظهور اللغة دائمًا في الرابط
 });

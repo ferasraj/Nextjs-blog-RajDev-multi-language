@@ -1,19 +1,19 @@
 import InsightRoll from "../components/About/InsightRoll";
 
 const insights = [
-  "20+ Projects Completed",
-  "3+ Years of Freelancing",
-  "99% Client Satisfaction",
-  "20K+ Subscribers",
-  "Authored In-Depth Course on Educative",
-  "Contributed as a Technical Course Reviewer 📝",
-  "Recipient of the Hackernoon Noonies Award 🏆",
+  "projectsCompleted",
+  "yearsFreelancing",
+  "clientSatisfaction",
+  "subscribers",
+  "educativeCourse",
+  "technicalReviewer",
+  "hackernoonAward",
 ];
 
-export default function AboutLayout({ children }) {
+export default function AboutLayout({ children, params }) {
   return (
     <main className="w-full flex flex-col items-center justify-between">
-      <InsightRoll insights={insights} />
+      <InsightRoll insights={insights} locale={params.locale} />
       {children}
     </main>
   );

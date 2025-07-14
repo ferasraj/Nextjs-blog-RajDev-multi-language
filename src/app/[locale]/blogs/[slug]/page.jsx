@@ -23,6 +23,7 @@ export async function generateMetadata({ params }) {
   if (!blog) {
     return;
   }
+
   const publishedAt = new Date(blog.publishedAt).toISOString();
   const modifiedAt = new Date(blog.updatedAt || blog.publishedAt).toISOString();
   let imageList = [siteMetadata.socialBanner];

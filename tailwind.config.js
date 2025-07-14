@@ -59,11 +59,16 @@ module.exports = {
       },
       animation: {
         roll: "roll 24s linear infinite",
+        rollAr: "rollAr 24s linear infinite",
       },
       keyframes: {
         roll: {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(-100%)" },
+        },
+        rollAr: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
         },
       },
       borderRadius: {

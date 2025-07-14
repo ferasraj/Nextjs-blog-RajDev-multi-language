@@ -1,7 +1,10 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 
-const ContactForm = () => {
+const ContactForm = ({ locale }) => {
+  const t = useTranslations("Contact");
   const {
     register,
     handleSubmit,
@@ -13,39 +16,42 @@ const ContactForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-12 text-base xs:text-lg sm:text-xl font-medium leading-relaxed font-in"
+      className={twMerge(
+        "mt-12 text-base xs:text-lg sm:text-xl font-medium leading-relaxed font-in ",
+        locale === "ar" ? "font-tajawal font-semibold" : ""
+      )}
     >
-      Hello! My name is{" "}
+      {t("name")}
       <input
         type="text"
-        placeholder="your name"
+        placeholder={t("namePlaceholder")}
         {...register("name", { required: true, maxLength: 80 })}
         className="outline-none border-0 p-0 mx-2 focus:ring-0 placeholder:text-center 
         placeholder:text-lg border-b border-gray 
         focus:border-gray bg-transparent "
       />
-      and I want to discuss a potential project. You can email me at
+      {t("emailIntro")}
       <input
         type="email"
-        placeholder="your@email"
+        placeholder={t("emailPlaceholder")}
         {...register("email", {})}
         className="outline-none border-0 p-0 mx-2 focus:ring-0 
         placeholder:text-center placeholder:text-lg border-b border-gray 
         focus:border-gray bg-transparent"
       />
-      or reach out to me on
+      {t("phoneIntro")}
       <input
         type="tel"
-        placeholder="your phone"
+        placeholder={t("phonePlaceholder")}
         {...register("phone number", {})}
         className="outline-none border-0 p-0 mx-2 
         focus:ring-0 placeholder:text-center placeholder:text-lg border-b border-gray 
         focus:border-gray bg-transparent"
       />
-      Here are some details about my project: <br />
+      {t("detailsIntro")} <br />
       <textarea
         {...register("project details", {})}
-        placeholder="my project is about..."
+        placeholder={t("detailsPlaceholder")}
         rows={3}
         className="w-full outline-none border-0 p-0 mx-0 focus:ring-0  
         placeholder:text-lg placeholder:p-10 overflow-hidden border-b border-gray 
@@ -53,7 +59,7 @@ const ContactForm = () => {
       />
       <input
         type="submit"
-        value="send request"
+        value={t("submit")}
         className="mt-8 font-medium inline-block capitalize 
         text-lg sm:text-xl py-2 sm:py-3 px-6 sm:px-8 border-2 
         border-solid border-dark dark:border-light rounded cursor-pointer "
