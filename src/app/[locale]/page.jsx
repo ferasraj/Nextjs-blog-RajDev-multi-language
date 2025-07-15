@@ -4,6 +4,8 @@ import FeaturedPosts from "./components/Home/FeaturedPosts";
 import RecentPosts from "./components/Home/RecentPosts";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { routing } from "@/src/i18n/routing";
+import { hasLocale, useLocale } from "next-intl";
+import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -43,11 +45,19 @@ export const metadata = {
   },
 };
 
-export default async function Home({ params }) {
+export default function Home({ params }) {
+  const locale = useLocale();
+  if (!routing.locales.includes(params.locale)) {
+    notFound();
+  }
+  console.log(locale);
+  console.log(params.locale);
+  console.log(params);
+
   return (
     <main className="flex flex-col items-center justify-center ">
       <HomeCoverSection blogs={allBlogs} locale={params.locale} />
-      {/* <FeaturedPosts blogs={allBlogs} locale={params.locale} /> */}
+      <FeaturedPosts blogs={allBlogs} locale={params.locale} />
       <RecentPosts blogs={allBlogs} locale={params.locale} />
     </main>
   );

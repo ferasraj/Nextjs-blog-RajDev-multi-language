@@ -1,12 +1,14 @@
+"use client";
+import { Link } from "@/src/i18n/navigation";
 import { slug } from "github-slugger";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
 const Category = ({ link = "#", name, active, ...props }) => {
   const t = useTranslations("tags");
-  const translated = t(slug(name), { default: name });
+  const categorySlug = slug(name);
+  const translated = t(categorySlug, { default: name });
   return (
     <Link
       href={link}

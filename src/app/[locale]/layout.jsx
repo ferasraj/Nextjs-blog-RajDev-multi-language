@@ -8,6 +8,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { themeScript } from "./components/Hooks/themeScript";
+import ClientProviders from "./components/Toast/ClientProviders";
+// import ClientProviders from "./ClientProviders";
 
 export const metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -66,7 +68,7 @@ export default async function RootLayout({ children, params }) {
     >
       <head>
         {/* 👇 سكربت الثيم لمنع الوميض */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* <script dangerouslySetInnerHTML={{ __html: themeScript }} /> */}
       </head>
       <body
         className={twJoin(
@@ -75,9 +77,11 @@ export default async function RootLayout({ children, params }) {
         )}
       >
         <NextIntlClientProvider locale={locale}>
-          <Header locale={locale} />
-          {children}
-          <Footer />
+          <ClientProviders>
+            <Header locale={locale} />
+            {children}
+            <Footer locale={locale} />
+          </ClientProviders>
         </NextIntlClientProvider>
       </body>
     </html>

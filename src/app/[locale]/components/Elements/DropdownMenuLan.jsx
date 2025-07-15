@@ -8,12 +8,11 @@ import {
 } from "@/components/ui/Dropdown-Menu";
 import { usePathname, useRouter } from "next/navigation";
 import World from "../Icons";
-import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-export default function DropdownMenuLan() {
+export default function DropdownMenuLan({ locale }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
 
   // const changeLocale = (locale) => {
   //   const segments = pathname.split("/");
@@ -36,14 +35,18 @@ export default function DropdownMenuLan() {
   };
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger
-        className="px-2 py-1 text-accent hover:text-black 
-        dark:text-accentDark dark:hover:text-light
-        rounded-md transition "
+        className={twMerge(
+          " py-1 hover:scale-125 transition-all ease duration-200",
+          locale === "ar" ? "px-5" : "px-2"
+        )}
         aria-label="Change Language"
       >
-        <World className="mb-2 flex flex-col items-center justify-center translate-y-[6px] fill-accent dark:fill-light" />
+        <World
+          className="mb-2 flex flex-col items-center justify-center translate-y-[6px] 
+        fill-black sm:dark:fill-light "
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

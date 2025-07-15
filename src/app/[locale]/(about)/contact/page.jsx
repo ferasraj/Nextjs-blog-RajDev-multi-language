@@ -14,6 +14,8 @@ export const metadata = {
 };
 
 const Contact = async ({ params }) => {
+  generateStaticParams(params.locale);
+
   const t = await getTranslations({
     locale: params.locale,
     namespace: "Contact",

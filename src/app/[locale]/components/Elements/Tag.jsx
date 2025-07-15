@@ -1,3 +1,4 @@
+"use client";
 import { slug } from "github-slugger";
 import { useTranslations } from "next-intl";
 import Link from "next/link";

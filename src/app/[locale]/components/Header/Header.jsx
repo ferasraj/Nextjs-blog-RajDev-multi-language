@@ -11,7 +11,8 @@ import {
   MoonIcon,
 } from "../Icons";
 import siteMetadata from "@/src/utils/siteMetaData";
-import useThemeSwitch from "../Hooks/useThemeSwitch";
+// import useThemeSwitch from "../Hooks/useThemeSwitch";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
@@ -20,16 +21,23 @@ import DropdownMenuLan from "../Elements/DropdownMenuLan";
 const logoClassName =
   "inline-block h-6 w-6 mr-4 hover:scale-125 transition-all ease duration-200";
 const Header = ({ locale }) => {
-  const [mode, setMode] = useThemeSwitch();
+  const { theme, setTheme } = useTheme();
   const [click, setClick] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const toggle = () => {
-    setClick(!click);
-  };
-
+  // refs
   const navRef = useRef(null);
   const buttonRef = useRef(null);
 
+  // translations
+  const t = useTranslations("Header");
+
+  // prevent hydration mismatch by delaying render until mounted
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // handle outside clicks to close menu
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -51,8 +59,12 @@ const Header = ({ locale }) => {
     };
   }, [click]);
 
-  const t = useTranslations("Header");
-  // if (!mounted) return null; // ⬅️ لا تعرض الهيدر إلا بعد تركيب المكون
+  const toggle = () => {
+    setClick(!click);
+  };
+
+  // if not mounted yet, don't render (fix hydration errors)
+  // if (!mounted) return null;
 
   return (
     <header
@@ -139,23 +151,24 @@ const Header = ({ locale }) => {
         >
           {t("Contact")}
         </Link>
-        <button
-          onClick={() => {
-            setMode(mode === "light" ? "dark" : "light");
-            setClick(false);
-          }}
-          className={twMerge(
-            "w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1",
-            mode === "light" ? "bg-dark text-light" : "bg-light text-dark"
-          )}
-          aria-label="theme-switcher"
-        >
-          {mode === "light" ? (
-            <MoonIcon className={"fill-dark"} />
-          ) : (
-            <SunIcon className={"fill-dark"} />
-          )}
-        </button>
+        {!mounted ? (
+          <button className="w-6 h-6 rounded-full dark:bg-black" />
+        ) : (
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            className={twMerge(
+              "w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1",
+              theme === "light" ? "bg-dark text-light" : "bg-light text-dark"
+            )}
+            aria-label="theme-switcher"
+          >
+            {theme === "light" ? (
+              <MoonIcon className="fill-dark" />
+            ) : (
+              <SunIcon className="fill-dark" />
+            )}
+          </button>
+        )}
         <DropdownMenuLan />
       </nav>
 
@@ -185,20 +198,30 @@ const Header = ({ locale }) => {
         >
           {t("Contact")}
         </Link>
-        <button
-          onClick={() => setMode(mode === "light" ? "dark" : "light")}
-          className={twMerge(
-            "w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1",
-            mode === "light" ? "bg-dark text-light" : "bg-light text-dark"
-          )}
-          aria-label="theme-switcher"
-        >
-          {mode === "light" ? (
-            <MoonIcon className={"fill-dark"} />
-          ) : (
-            <SunIcon className={"fill-dark"} />
-          )}
-        </button>
+        {!mounted ? (
+          <button
+            className={twMerge(
+              "w-6 h-6 rounded-full ml-2 dark:bg-white bg-black ",
+              locale === "ar" ? "mr-3" : ""
+            )}
+          />
+        ) : (
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            className={twMerge(
+              "w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1",
+              theme === "light" ? "bg-dark text-light" : "bg-light text-dark",
+              locale === "ar" ? "mr-3" : ""
+            )}
+            aria-label="theme-switcher"
+          >
+            {theme === "light" ? (
+              <MoonIcon className="fill-dark" />
+            ) : (
+              <SunIcon className="fill-dark" />
+            )}
+          </button>
+        )}
       </nav>
       <div className="hidden sm:flex items-center">
         <a
@@ -237,7 +260,7 @@ const Header = ({ locale }) => {
         >
           <GithubIcon />{" "}
         </a>
-        <DropdownMenuLan />
+        <DropdownMenuLan locale={locale} />
       </div>
     </header>
   );

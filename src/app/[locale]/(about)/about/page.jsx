@@ -3,7 +3,6 @@ import AboutCoverSection from "../../components/About/AboutCoverSection";
 import Skills from "../../components/About/Skills";
 import { routing } from "@/src/i18n/routing";
 import { getTranslations } from "next-intl/server";
-import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "About Me",
@@ -15,6 +14,9 @@ export function generateStaticParams() {
 }
 
 export default async function AboutPage({ params, locale }) {
+  // ✨ ضبط locale للسيرفر statically
+  generateStaticParams(params.locale);
+
   // const heads = headers();
   // const host = heads.get("host"); // localhost:3000
   // const protocol = heads.get("x-forwarded-proto") || "http"; // http or https

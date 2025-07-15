@@ -14,19 +14,19 @@ const nextConfig = {
   swcMinify: true,
 
   // أضف هذا الجزء الجديد
-  async headers() {
-    return [
-      {
-        source: "/:path*.xml",
-        headers: [
-          {
-            key: "Content-Type",
-            value: "text/xml; charset=utf-8",
-          },
-        ],
-      },
-    ];
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/:path*.xml",
+  //       headers: [
+  //         {
+  //           key: "Content-Type",
+  //           value: "text/xml; charset=utf-8",
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 
   // إضافة اختيارية لتحسين SEO
   async rewrites() {

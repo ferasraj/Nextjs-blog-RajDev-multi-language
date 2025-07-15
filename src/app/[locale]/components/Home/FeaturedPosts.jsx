@@ -1,10 +1,13 @@
+"use client";
 import { sortBlogs } from "@/src/utils";
 import React from "react";
 import BlogLayoutOne from "../Blog/BlogLayoutOne";
 import BlogLayoutTwo from "../Blog/BlogLayoutTwo";
 import { twMerge } from "tailwind-merge";
+import { useTranslations } from "next-intl";
 
 const FeaturedPosts = ({ blogs, locale }) => {
+  const t = useTranslations("FeaturedPosts");
   const sortedBlogs = sortBlogs(blogs);
   return (
     <section
@@ -19,7 +22,7 @@ const FeaturedPosts = ({ blogs, locale }) => {
           "md:text-4xl text-dark dark:text-light"
         )}
       >
-        Featured Posts
+        {t("Featured-Posts")}{" "}
       </h2>
 
       <div className="grid grid-cols-2 grid-rows-2 gap-6  mt-10 sm:mt-16">

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { slug } from "github-slugger";
 import { twMerge } from "tailwind-merge";
 
-const BlogLayoutOne = ({ blog }) => {
+const BlogLayoutOne = ({ blog, locale }) => {
   return (
     <div className="group h-full inline-block overflow-hidden rounded-xl w-full">
       <div
@@ -45,10 +45,11 @@ const BlogLayoutOne = ({ blog }) => {
                 "bg-gradient-to-r from-accent to-accent bg-[length:0px_3px]",
                 "dark:from-accentDark/50 dark:to-accentDark/50",
                 "group-hover:bg-[length:100%_3px] bg-left-bottom",
-                "bg-no-repeat transition-[background-size] duration-500 "
+                "bg-no-repeat transition-[background-size] duration-500 ",
+                locale === "ar" ? "bg-right-bottom" : "bg-left-bottom"
               )}
             >
-              {blog.title}
+              {blog.title[locale]}
             </span>
           </h2>
         </Link>

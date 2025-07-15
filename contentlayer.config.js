@@ -44,11 +44,11 @@ const Blog = defineDocumentType(() => ({
     },
   },
   computedFields: {
-    // publishedAt: {
-    //   type: "date",
-    //   required: true,
-    //   resolve: (doc) => new Date().toISOString(),
-    // },
+    publishedAt: {
+      type: "date",
+      required: true,
+      resolve: (doc) => new Date().toISOString(),
+    },
     url: {
       type: "string",
       resolve: (doc) => `/blogs/${doc._raw.flattenedPath}`,

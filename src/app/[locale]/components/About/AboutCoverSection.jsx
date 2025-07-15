@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import profileCharacter from "@/public/character.png";
 import { twMerge } from "tailwind-merge";

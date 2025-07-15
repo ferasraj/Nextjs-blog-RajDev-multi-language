@@ -27,6 +27,9 @@
         "Recent-Posts": "Recent Posts",
         "view-all": "view all"
     },
+    "FeaturedPosts": {
+        "Featured-Posts": "Featured Posts"
+    },
     "About": {
         "haveProject": "Have a project in mind? Reach out to me 📞 from",
         "contactLink": "here",
@@ -79,7 +82,10 @@
             "title": "Interesting Stories | Updates | Guides",
             "description": "Subscribe to learn about new technology and updates. Join over 5000+ members community to stay up to date with latest news.",
             "placeholder": "Enter your email",
-            "subscribeBtn": "Subscribe"
+            "subscribeBtn": "Subscribe",
+            "subscribing": "Subscribeing...",
+            "success": "🎉 Successfully Subscribed!",
+            "error": "❌ Something went wrong, please try again."
         },
         "copyright": "©2025 RajDev. All rights reserved.",
         "madeWith": "Made with",

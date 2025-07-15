@@ -5,9 +5,10 @@ import BlogLayoutThree from "../../components/Blog/BlogLayoutThree";
 import { getUniqueTags } from "@/src/utils/getUniqueTags";
 import { toCapitalizedName } from "@/src/utils/toCapitalizedName";
 import siteMetadata from "@/src/utils/siteMetaData";
-import { getTranslations } from "next-intl/server"; // ✅ بدل useTranslations
+import { getTranslations } from "next-intl/server";
 import { twMerge } from "tailwind-merge";
 import { routing } from "@/src/i18n/routing";
+import { notFound } from "next/navigation";
 
 // Create a dynamic route for each category using SSG (Static Site Generation) instead of Server-Side Rendering (SSR)
 export async function generateStaticParams() {
@@ -54,9 +55,20 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-const CategoryPage = async ({ params, locale }) => {
+const CategoryPage = async ({ params }) => {
+  const locale = params.locale;
+  // ✅ اجعل الصفحة static بدل ما تتولد ديناميكيًا
+  generateStaticParams(locale);
+
   // 1. اجلب التصنيفات
   const allCategories = getUniqueTags(allBlogs);
+
+  if (
+    !allCategories.some((tag) => slug(tag) === params.slug) &&
+    params.slug !== "all"
+  ) {
+    notFound();
+  }
 
   // 2. فلتر المقالات حسب التصنيف
   const blogs = allBlogs
@@ -72,7 +84,7 @@ const CategoryPage = async ({ params, locale }) => {
   const translatedName = t(params.slug, {
     default: toCapitalizedName(params.slug),
   });
-
+  console.log(locale);
   return (
     <article className="mt-12 flex flex-col text-dark dark:text-light">
       <div className=" px-5 sm:px-10  md:px-24  sxl:px-32 flex flex-col">

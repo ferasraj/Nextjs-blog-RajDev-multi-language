@@ -1,10 +1,11 @@
-// "use client";
+"use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 // import Link from "next/link";
 
 export default function NotFound() {
-  const locale = useLocale(); // استخدم الهوك الخاص بـ next-intl للحصول على اللغة الحالية
+  const locale = useLocale();
+  const t = useTranslations("NotFound");
 
   return (
     <main className="my-32 w-full dark:bg-dark flex justify-center font-mr">
@@ -19,7 +20,7 @@ export default function NotFound() {
           className={`inline-block text-dark dark:text-light
       text-5xl font-bold w-full capitalize xl:text-6xl text-center mt-4 tracking-wide leading-snug`}
         >
-          Page Not Found!
+          {t("title")}
         </h2>
         <a
           href={`/${locale}`}
@@ -28,7 +29,7 @@ export default function NotFound() {
         dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light
         "
         >
-          Go To Home Page
+          {t("goHome")}
         </a>
       </div>
     </main>

@@ -1,10 +1,16 @@
+"use client";
 import { format } from "date-fns";
+import { slug } from "github-slugger";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-const BlogLayoutTwo = ({ blog }) => {
+const BlogLayoutTwo = ({ blog, locale }) => {
+  const t = useTranslations("tags");
+  const translated = t(slug(blog.tags[0]), { default: blog.tags[0] });
+
   return (
     <div className="group grid grid-cols-12 gap-4 items-center  text-dark dark:text-light">
       <Link
@@ -29,10 +35,10 @@ const BlogLayoutTwo = ({ blog }) => {
         <span
           className={twMerge(
             "inline-block w-full uppercase text-accent",
-            "dark:text-accentDark font-semibold text-xs sm:text-sm"
+            "dark:text-accentDark font-semibold text-xs sm:text-lg"
           )}
         >
-          {blog.tags[0]}
+          {translated}
         </span>
         <Link href={blog.url} className="inline-block my-1 ">
           <h2
@@ -46,10 +52,12 @@ const BlogLayoutTwo = ({ blog }) => {
                 "bg-gradient-to-r from-accent/50 dark:from-accentDark/50",
                 "to-accent/50 dark:to-accentDark/50",
                 "bg-[length:0px_2px] group-hover:bg-[length:100%_2px]",
-                "bg-left-bottom bg-no-repeat transition-[background-size] duration-500"
+                "bg-no-repeat transition-[background-size] duration-500",
+                locale === "ar" ? "bg-right-bottom" : "bg-left-bottom",
+                locale === "ar" ? "font-tajawal " : ""
               )}
             >
-              {blog.title}
+              {blog.title[locale]}
             </span>
           </h2>
         </Link>

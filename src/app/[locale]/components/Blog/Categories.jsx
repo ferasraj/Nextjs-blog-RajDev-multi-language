@@ -12,14 +12,17 @@ const Categories = ({ categories, currentSlug }) => {
         "py-4 flex items-start flex-wrap font-medium mx-5 md:mx-10"
       )}
     >
-      {categories.map((cat) => (
-        <Category
-          key={cat}
-          link={`/categories/${cat}`}
-          name={cat}
-          active={currentSlug === slug(cat)}
-        />
-      ))}
+      {categories.map((cat) => {
+        const categorySlug = slug(cat);
+        return (
+          <Category
+            key={categorySlug}
+            link={`/categories/${categorySlug}`}
+            name={cat}
+            active={currentSlug === categorySlug}
+          />
+        );
+      })}
     </div>
   );
 };

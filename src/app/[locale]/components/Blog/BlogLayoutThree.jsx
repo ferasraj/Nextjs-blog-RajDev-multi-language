@@ -1,3 +1,4 @@
+"use client";
 import { format } from "date-fns";
 import { slug } from "github-slugger";
 import { useTranslations } from "next-intl";
@@ -12,7 +13,12 @@ const BlogLayoutThree = ({ blog, locale }) => {
 
   return (
     <div className="group flex flex-col items-center text-black ">
-      <Link href={blog.url} className="h-full rounded-xl overflow-hidden">
+      <Link
+        href={blog.url}
+        className="h-full rounded-xl overflow-hidden 
+        dark:border-0 border-[1px] border-solid 
+        border-black/10"
+      >
         <Image
           src={blog.image.filePath.replace("../public", "")}
           placeholder="blur"
@@ -31,8 +37,7 @@ const BlogLayoutThree = ({ blog, locale }) => {
       <div className="flex flex-col w-full mt-4">
         <span
           className={twMerge(
-            "uppercase text-accent dark:text-accentDark  font-semibold text-xs sm:text-sm",
-            locale === "ar" ? "font-bold " : ""
+            "uppercase text-accent dark:text-accentDark  font-semibold text-xs sm:text-lg"
           )}
         >
           {translated}
@@ -51,7 +56,7 @@ const BlogLayoutThree = ({ blog, locale }) => {
                 locale === "ar" ? "bg-right-bottom" : "bg-left-bottom",
                 "bg-no-repeat transition-[background-size] duration-500",
                 "text-dark dark:text-light",
-                locale === "ar" ? "font-tajawal font-thin" : ""
+                locale === "ar" ? "font-tajawal " : ""
               )}
             >
               {blog.title[locale]}

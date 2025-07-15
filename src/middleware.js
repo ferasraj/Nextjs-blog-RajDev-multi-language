@@ -3,9 +3,10 @@ import { routing } from "./i18n/routing";
 
 export default createMiddleware({
   ...routing,
-  // أضف هذه الإعدادات الإضافية
-  // alternateLinks: true,
-  // localeDetection: true,
+  locales: ["en", "ar"],
+
+  // اللغة الافتراضية
+  defaultLocale: "en",
   localePrefix: "always",
 });
 

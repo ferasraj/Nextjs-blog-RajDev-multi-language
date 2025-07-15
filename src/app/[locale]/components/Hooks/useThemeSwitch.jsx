@@ -1,4 +1,7 @@
 "use client";
+
+// npm install next-themes
+
 import { useEffect, useState } from "react";
 
 const useThemeSwitch = () => {

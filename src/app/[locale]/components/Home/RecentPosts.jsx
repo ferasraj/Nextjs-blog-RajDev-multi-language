@@ -1,3 +1,4 @@
+"use client";
 import { sortBlogs } from "@/src/utils";
 import Link from "next/link";
 import React from "react";
