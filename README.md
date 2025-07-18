@@ -1,39 +1,104 @@
-# Next.js Personal Blog Website
+# Nextjs-blog-RajDev-multi-language
 
-A personal blog website built with Next.js, Contentlayer, and Tailwind CSS.
+A multilingual blog built with **Next.js**, **Tailwind CSS**, and **Contentlayer**, supporting **English and Arabic**.  
+This project is created and maintained by [Firas](https://github.com/ferasraj) as part of his learning journey in web development.
 
-## Demo
+---
 
-Check out the live demo: [https://Nextjs-blog-RajDev.vercel.app/](https://Nextjs-blog-RajDev.vercel.app/)
+## 🌍 Features
 
-## Features
+- 🌐 **Internationalization (i18n)** with support for Arabic and English using localized routing.
+- 📝 **Markdown blog posts** powered by Contentlayer.
+- ⚡ **Fast static generation** for SEO-friendly pages.
+- 🎨 **Tailwind CSS** for responsive and modern UI.
+- 🧠 Simple JSON-based route generation for categories and blog posts.
+- 🗺️ Automatically generated sitemap and robots.txt using `next-sitemap`.
 
-- Built with Next.js for server-side rendering and static site generation
-- Uses Contentlayer for managing blog posts and metadata
-- Styled with Tailwind CSS for a responsive and customizable design
-- Includes a contact page with a form
+---
 
-## Getting Started
+## 🚀 Getting Started
 
-1. Clone the repository: `git clone https://github.com/feras.raj/Nextjs-blog-RajDev`
-2. Install dependencies: `npm install` or `yarn install`
-3. Start the development server: `npm run dev` or `yarn dev`
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result
+```bash
+# 1. Clone the repository
+git clone https://github.com/ferasraj/Nextjs-blog-RajDev-multi-language.git
 
-## Blog Posts
+# 2. Navigate into the project
+cd Nextjs-blog-RajDev-multi-language
 
-Blog posts are stored in the `content` directory and are managed by Contentlayer. You can add new posts by creating a new file in the `content` directory with a `.mdx` extension.
+# 3. Install dependencies
+npm install
 
-## Contact Page
+# 4. Generate blog and category routes
+npm run generate
 
-The contact page includes a form that sends an email to the site owner. You'll need to configure your email settings to use this feature.
+# 5. Run the development server
+npm run dev
+```
 
-## Resources
+Now open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- Next.js: [https://nextjs.org/](https://nextjs.org/)
-- Contentlayer: [https://contentlayer.dev/](https://contentlayer.dev/)
-- Tailwind CSS: [https://tailwindcss.com/](https://tailwindcss.com/)
+---
 
-## License
+## ⚙️ Scripts
 
-This project is licensed under the MIT License. See the [LICENSE file](LICENSE) for details.
+| Command             | Description                                        |
+| ------------------- | -------------------------------------------------- |
+| `npm run dev`       | Start development server                           |
+| `npm run build`     | Build for production                               |
+| `npm run generate`  | Generate `blogRoutes.json` & `categoryRoutes.json` |
+| `npm run postbuild` | Generate sitemap after build                       |
+
+---
+
+## 🛠️ Technologies Used
+
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Contentlayer](https://contentlayer.dev/)
+- [next-sitemap](https://www.npmjs.com/package/next-sitemap)
+- [i18n routing](https://nextjs.org/docs/advanced-features/i18n-routing)
+
+---
+
+## 📁 Folder Structure (Simplified)
+
+```
+.
+├── content/              # Markdown files for blog posts
+├── pages/                # Next.js pages with i18n
+├── scripts/              # Custom script to generate routes
+├── public/               # Static assets
+├── components/           # Reusable UI components
+├── styles/               # Global styles and Tailwind setup
+├── blogRoutes.json       # Generated blog route map
+├── categoryRoutes.json   # Generated category route map
+└── next-sitemap.config.js# Sitemap configuration
+```
+
+---
+
+## 📌 Roadmap
+
+- [ ] Add blog post search
+- [ ] Support more languages (e.g. French, Turkish)
+- [ ] Add dark mode
+- [ ] Deploy to Vercel
+
+---
+
+## 🤝 Contributing
+
+This is a learning project, but PRs and suggestions are welcome!
+
+---
+
+## 🧑‍💻 Author
+
+**[Feras Raj]** – [ferasraj on GitHub](https://github.com/ferasraj)
+
+---
+
+## 📄 License
+
+This project is open-source and free to use under the [MIT License](LICENSE).
