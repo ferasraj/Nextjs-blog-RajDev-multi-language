@@ -1,7 +1,7 @@
 "use client";
 import { slug } from "github-slugger";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 

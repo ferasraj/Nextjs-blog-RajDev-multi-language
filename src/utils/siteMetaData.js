@@ -5,17 +5,18 @@ const siteMetadata = {
   description: "A blog created with Next.js, Tailwind.css and contentlayer.",
   language: "en-us",
   theme: "system", // system, dark or light
-  siteUrl: "https://nextjs-blog-raj-dev-gfm9.vercel.app", // your website URL
+  siteUrl: "https://blog-rajmod-dev.app", // your website URL
   siteLogo: "/logo.png",
   socialBanner: "/social-banner.png", // add social banner in the public folder
-  email: "codebucks27@gmail.com",
+  email: "feras.raj@gmail.com",
   github: "https://github.com/ferasraj",
-  twitter: "https://x.com/code_bucks",
+  twitter: "https://x.com/ferasraj",
   facebook: "https://facebook.com",
-  youtube: "https://youtube.com/codebucks",
-  linkedin: "https://www.linkedin.com/in/codebucks/",
+  youtube: "https://youtube.com/",
+  linkedin: "https://www.linkedin.com/in/ferasraj/",
   dribbble: "https://www.dribbble.com",
-  locale: "en-US",
+  instagram: "https://www.instagram.com/feras.raj",
+  locale: { ar: "ar", en: "en" },
 };
 
 module.exports = siteMetadata;

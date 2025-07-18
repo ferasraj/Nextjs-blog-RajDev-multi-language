@@ -84,7 +84,7 @@ const CategoryPage = async ({ params }) => {
   const translatedName = t(params.slug, {
     default: toCapitalizedName(params.slug),
   });
-  console.log(locale);
+  // console.log(locale);
   return (
     <article className="mt-12 flex flex-col text-dark dark:text-light">
       <div className=" px-5 sm:px-10  md:px-24  sxl:px-32 flex flex-col">

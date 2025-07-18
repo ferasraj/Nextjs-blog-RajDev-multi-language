@@ -33,7 +33,7 @@ const BlogLayoutOne = ({ blog, locale }) => {
           name={blog.tags[0]}
           className="text-xs !border "
         />
-        <Link href={blog.url} className="mt-6">
+        <Link href={`/blogs/${slug(blog.title[locale])}`} className="mt-6">
           <h2
             className={twMerge(
               "font-bold capitalize text-sm xs:text-base",

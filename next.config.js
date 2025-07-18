@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+
+// import { withContentlayer } from "next-contentlayer";
+// import createNextIntlPlugin from "next-intl/plugin";
+
 const { withContentlayer } = require("next-contentlayer");
 const createNextIntlPlugin = require("next-intl/plugin");
 
@@ -6,7 +10,8 @@ const withNextIntl = createNextIntlPlugin({});
 
 const nextConfig = {
   compiler: {
-    removeConsole: true,
+    // removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: false,
   },
   experimental: {
     // appDir: true,
@@ -29,16 +34,8 @@ const nextConfig = {
   // },
 
   // إضافة اختيارية لتحسين SEO
-  async rewrites() {
-    return [
-      {
-        source: "/sitemap.xml",
-        destination: "/sitemap-0.xml", // إذا كنت تريد إعادة توجيه
-      },
-    ];
-  },
 };
-
+// export default withContentlayer(withNextIntl({ ...nextConfig }));
 module.exports = withContentlayer(withNextIntl({ ...nextConfig }));
 
 // /** @type {import('next').NextConfig} */

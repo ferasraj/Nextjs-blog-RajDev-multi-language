@@ -47,7 +47,19 @@
         "phonePlaceholder": "your phone",
         "detailsIntro": "Here are some details about my project:",
         "detailsPlaceholder": "my project is about...",
-        "submit": "send request"
+        "submit": "send request",
+        "submiting": "requesting",
+        "success": "🎉 Successfully Send Request!",
+        "error": "❌ Something went wrong, please try again.",
+        "formErrors": {
+            "nameRequired": "Name is required",
+            "emailRequired": "Email is required",
+            "invalidEmail": "Invalid email address",
+            "phoneTooShort": "Phone number is too short",
+            "phoneTooLong": "Phone number is too long",
+            "invalidPhone": "Invalid phone number",
+            "messageRequired": "Message is required"
+        }
     },
     "Skills": {
         "title": "I'm comfortable in...",

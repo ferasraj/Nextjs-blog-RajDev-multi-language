@@ -4,6 +4,7 @@ import LottieAnimation from "../../components/Contact/LottieAnimation";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { routing } from "@/src/i18n/routing";
 import { getTranslations } from "next-intl/server";
+import { twJoin } from "tailwind-merge";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -14,6 +15,8 @@ export const metadata = {
 };
 
 const Contact = async ({ params }) => {
+  const locale = params.locale;
+  // ✨ ضبط locale للسيرفر statically
   generateStaticParams(params.locale);
 
   const t = await getTranslations({
@@ -27,8 +30,11 @@ const Contact = async ({ params }) => {
     dark:text-light"
     >
       <div
-        className="inline-block w-full sm:w-4/5 md:w-2/5 h-full md:border-r-2 
-      border-solid border-dark dark:border-light"
+        className={twJoin(
+          "inline-block w-full sm:w-4/5 md:w-2/5 h-full ",
+          "border-solid border-dark dark:border-light",
+          locale === "ar" ? "md:border-l-2" : "md:border-r-2"
+        )}
       >
         <LottieAnimation />
       </div>

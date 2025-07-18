@@ -50,9 +50,6 @@ export default function Home({ params }) {
   if (!routing.locales.includes(params.locale)) {
     notFound();
   }
-  console.log(locale);
-  console.log(params.locale);
-  console.log(params);
 
   return (
     <main className="flex flex-col items-center justify-center ">

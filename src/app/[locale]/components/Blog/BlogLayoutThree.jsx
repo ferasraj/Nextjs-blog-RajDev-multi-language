@@ -14,7 +14,7 @@ const BlogLayoutThree = ({ blog, locale }) => {
   return (
     <div className="group flex flex-col items-center text-black ">
       <Link
-        href={blog.url}
+        href={`/blogs/${slug(blog.title[locale])}`}
         className="h-full rounded-xl overflow-hidden 
         dark:border-0 border-[1px] border-solid 
         border-black/10"
@@ -42,7 +42,10 @@ const BlogLayoutThree = ({ blog, locale }) => {
         >
           {translated}
         </span>
-        <Link href={blog.url} className="inline-block my-1 ">
+        <Link
+          href={`/blogs/${slug(blog.title[locale])}`}
+          className="inline-block my-1 "
+        >
           <h2
             className={twMerge(
               "font-semibold capitalize  text-base sm:text-lg",

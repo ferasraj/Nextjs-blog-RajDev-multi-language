@@ -9,17 +9,22 @@ import siteMetadata from "@/src/utils/siteMetaData";
 import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
 
+const locales = routing.locales;
+
 export async function generateStaticParams() {
-  const locales = routing.locales; // ["en", "ar"]
   return locales.flatMap((locale) =>
     allBlogs.map((blog) => ({
-      locale,
-      slug: blog._raw.flattenedPath,
+      slug: slug(blog.title[locale]),
     }))
   );
 }
+
 export async function generateMetadata({ params }) {
-  const blog = allBlogs.find((blog) => blog._raw.flattenedPath === params.slug);
+  const blog = allBlogs.find(
+    (blog) =>
+      slug(blog.title[params.locale]) === decodeURIComponent(params.slug)
+  );
+
   if (!blog) {
     return;
   }
@@ -61,11 +66,12 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-
 export default function BlogPage({ params }) {
   const locale = params.locale;
 
-  const blog = allBlogs.find((blog) => blog._raw.flattenedPath === params.slug);
+  const blog = allBlogs.find(
+    (blog) => slug(blog.title[locale]) === decodeURIComponent(params.slug) // ✅
+  );
 
   if (!blog) {
     notFound();
@@ -97,7 +103,7 @@ export default function BlogPage({ params }) {
       name: "Raj Dev Blog",
       logo: {
         "@type": "ImageObject",
-        url: "https://nextjs-blog-raj-dev-gfm9.vercel.app/logo.png",
+        url: "https://blog-rajmod-dev.app/logo.png",
       },
     },
     mainEntityOfPage: {

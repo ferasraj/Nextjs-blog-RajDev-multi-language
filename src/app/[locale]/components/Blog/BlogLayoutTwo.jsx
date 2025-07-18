@@ -14,7 +14,7 @@ const BlogLayoutTwo = ({ blog, locale }) => {
   return (
     <div className="group grid grid-cols-12 gap-4 items-center  text-dark dark:text-light">
       <Link
-        href={blog.url}
+        href={`/blogs/${slug(blog.title[locale])}`}
         className=" col-span-12  sm:col-span-4 h-full rounded-xl overflow-hidden"
       >
         <Image
@@ -40,7 +40,10 @@ const BlogLayoutTwo = ({ blog, locale }) => {
         >
           {translated}
         </span>
-        <Link href={blog.url} className="inline-block my-1 ">
+        <Link
+          href={`/blogs/${slug(blog.title[locale])}`}
+          className="inline-block my-1 "
+        >
           <h2
             className={twMerge(
               "font-semibold capitalize text-base sm:text-lg",

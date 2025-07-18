@@ -1,6 +1,12 @@
 "use client";
 import { twMerge } from "tailwind-merge";
-import { DribbbleIcon, GithubIcon, LinkedinIcon, XIcon } from "../Icons";
+import {
+  DribbbleIcon,
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  XIcon,
+} from "../Icons";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -58,7 +64,7 @@ const Footer = ({ locale }) => {
           <XIcon />
         </a>
 
-        <a
+        {/* <a
           href={siteMetadata.dribbble}
           className={logoClassName}
           aria-label="Reach out to me via Dribbble"
@@ -66,6 +72,18 @@ const Footer = ({ locale }) => {
           rel="noopener noreferrer"
         >
           <DribbbleIcon />
+        </a> */}
+        <a
+          href={siteMetadata.instagram}
+          className={twMerge(
+            logoClassName,
+            "-translate-y-1 mx-1 -translate-x-[10px]"
+          )}
+          aria-label="Reach out to me via Dribbble"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <InstagramIcon />
         </a>
         <a
           href={siteMetadata.github}

@@ -8,7 +8,6 @@ import { slug } from "github-slugger";
 const HomeCoverSection = ({ blogs, locale }) => {
   const sortedBlogs = sortBlogs(blogs);
   const blog = sortedBlogs[0];
-
   return (
     <div className="w-full inline-block">
       <article
@@ -43,7 +42,7 @@ const HomeCoverSection = ({ blogs, locale }) => {
         >
           <Tag link={`/categories/${slug(blog.tags[0])}`} name={blog.tags[0]} />
 
-          <Link href={blog.url} className="mt-6">
+          <Link href={`/blogs/${slug(blog.title[locale])}`} className="mt-6">
             <h1 className="font-bold capitalize text-lg sm:text-xl md:text-3xl lg:text-4xl">
               <span
                 className={twMerge(

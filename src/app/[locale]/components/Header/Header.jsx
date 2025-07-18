@@ -9,6 +9,7 @@ import {
   XIcon,
   SunIcon,
   MoonIcon,
+  InstagramIcon,
 } from "../Icons";
 import siteMetadata from "@/src/utils/siteMetaData";
 // import useThemeSwitch from "../Hooks/useThemeSwitch";
@@ -242,7 +243,7 @@ const Header = ({ locale }) => {
         >
           <XIcon />
         </a>
-        <a
+        {/* <a
           href={siteMetadata.dribbble}
           className={logoClassName}
           aria-label="Reach out to me via Dribbble"
@@ -250,10 +251,26 @@ const Header = ({ locale }) => {
           rel="noopener noreferrer"
         >
           <DribbbleIcon />
+        </a> */}
+        <a
+          href={siteMetadata.instagram}
+          className={twMerge(
+            logoClassName,
+            "-translate-y-1 mx-1 -translate-x-[10px]"
+          )}
+          aria-label="Reach out to me via Dribbble"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <InstagramIcon />
         </a>
         <a
           href={siteMetadata.github}
-          className={twMerge(logoClassName, "dark:fill-white")}
+          className={twMerge(
+            logoClassName,
+            "dark:fill-white ",
+            locale === "ar" ? "ml-0 mr-4" : "mx-2"
+          )}
           aria-label="Reach out to me via GitHub"
           target="_blank"
           rel="noopener noreferrer"

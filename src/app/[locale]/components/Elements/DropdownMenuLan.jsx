@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/Dropdown-Menu";
 import { usePathname, useRouter } from "next/navigation";
-import World from "../Icons";
+import { World } from "../Icons";
 import { twMerge } from "tailwind-merge";
 
 export default function DropdownMenuLan({ locale }) {

@@ -5,29 +5,34 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import GithubSlugger from "github-slugger";
+import fs from "fs";
+import path from "path";
+import { slug } from "github-slugger";
+
+// 🛡️ دالة تغليف آمنة لأي resolve
+const safe = (resolver, fallback) => {
+  return (doc) => {
+    try {
+      return resolver(doc);
+    } catch (e) {
+      console.error(`❌ Error in computedField:`, e.message);
+      return fallback;
+    }
+  };
+};
 
 const Blog = defineDocumentType(() => ({
   name: "Blog",
-  filePathPattern: "**/**/*.mdx",
+  filePathPattern: "**/index.mdx",
   contentType: "mdx",
   fields: {
     title: {
       type: "json",
       required: true,
-      // description: "Translated titles, e.g. { en: '...', ar: '...' }",
-    },
-    publishedAt: {
-      type: "date",
-      required: true,
-    },
-    updatedAt: {
-      type: "date",
-      required: true,
     },
     description: {
       type: "json",
       required: true,
-      // description: "Translated descriptions, e.g. { en: '...', ar: '...' }",
     },
     image: { type: "image" },
     isPublished: {
@@ -41,41 +46,78 @@ const Blog = defineDocumentType(() => ({
     tags: {
       type: "list",
       of: { type: "string" },
+      required: true,
     },
+    publishedAt: { type: "date", required: false },
+    updatedAt: { type: "date", required: false },
   },
   computedFields: {
     publishedAt: {
       type: "date",
       required: true,
-      resolve: (doc) => new Date().toISOString(),
+      resolve: safe((doc) => {
+        if (doc.publishedAt) return doc.publishedAt;
+
+        const filePath = path.join(
+          process.cwd(),
+          "content",
+          doc._raw.sourceFileDir,
+          "index.mdx"
+        );
+        const stats = fs.statSync(filePath);
+        return stats.birthtime.toISOString();
+      }, new Date().toISOString()),
     },
+
+    updatedAt: {
+      type: "date",
+      required: true,
+      resolve: safe((doc) => {
+        if (doc.updatedAt) return doc.updatedAt;
+
+        const filePath = path.join(
+          process.cwd(),
+          "content",
+          doc._raw.sourceFileDir,
+          "index.mdx"
+        );
+        const stats = fs.statSync(filePath);
+        return stats.mtime.toISOString();
+      }, new Date().toISOString()),
+    },
+
     url: {
       type: "string",
-      resolve: (doc) => `/blogs/${doc._raw.flattenedPath}`,
+      resolve: safe((doc) => {
+        const raw = doc._raw.flattenedPath;
+        return `/blogs/${raw.replace(/\\/g, "/")}`;
+      }, "/blogs/invalid-url"),
     },
     readingTime: {
       type: "json",
-      resolve: (doc) => readingTime(doc.body.raw),
+      resolve: safe(
+        (doc) => {
+          return readingTime(doc.body.raw);
+        },
+        { text: "0 min", minutes: 0, time: 0, words: 0 }
+      ),
     },
+
     toc: {
       type: "json",
-      resolve: async (doc) => {
-        const regulerExp = /\n(?<flag>#{1,6})\s+(?<content>.+)/g;
+      resolve: safe((doc) => {
+        const regulerExp = /^(#{1,6})\s+(.*)/gm;
         const slugger = new GithubSlugger();
         const headings = Array.from(doc.body.raw.matchAll(regulerExp)).map(
-          ({ groups }) => {
-            const flag = groups?.flag;
-            const content = groups?.content;
-            return {
-              level:
-                flag?.length == 1 ? "one" : flag?.length == 2 ? "two" : "three",
-              text: content,
-              slug: content ? slugger.slug(content) : undefined,
-            };
-          }
+          ([_, flag, content]) => ({
+            level:
+              flag.length === 1 ? "one" : flag.length === 2 ? "two" : "three",
+            text: content,
+            slug: content ? slugger.slug(content) : undefined,
+          })
         );
         return headings;
-      },
+      }, []),
     },
   },
 }));
@@ -98,21 +140,20 @@ export default makeSource({
   },
 });
 
-//  computedFields: {
-//     publishedAt: {
-//       type: "date",
-//       resolve: (doc) => {
-//         const fullPath = path.join(process.cwd(), "content", doc._raw.sourceFilePath);
-//         const stats = fs.statSync(fullPath);
-//         return stats.birthtime.toISOString(); // تاريخ الإنشاء
-//       },
-//     },
-//     updatedAt: {
-//       type: "date",
-//       resolve: (doc) => {
-//         const fullPath = path.join(process.cwd(), "content", doc._raw.sourceFilePath);
-//         const stats = fs.statSync(fullPath);
-//         return stats.mtime.toISOString(); // تاريخ آخر تعديل
-//       },
-//     },
-//   },
+// resolve: async (doc) => {
+//   const regulerExp = /\n(?<flag>#{1,6})\s+(?<content>.+)/g;
+//   const slugger = new GithubSlugger();
+//   const headings = Array.from(doc.body.raw.matchAll(regulerExp)).map(
+//     ({ groups }) => {
+//       const flag = groups?.flag;
+//       const content = groups?.content;
+//       return {
+//         level:
+//           flag?.length == 1 ? "one" : flag?.length == 2 ? "two" : "three",
+//         text: content,
+//         slug: content ? slugger.slug(content) : undefined,
+//       };
+//     }
+//   );
+//   return headings;
+// },
