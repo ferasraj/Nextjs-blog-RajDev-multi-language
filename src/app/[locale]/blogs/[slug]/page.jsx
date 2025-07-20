@@ -8,9 +8,10 @@ import { slug } from "github-slugger";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
+import TOC from "../../components/Blog/TOC";
 
 const locales = routing.locales;
-
+console.log(locales);
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
     allBlogs.map((blog) => ({
@@ -90,7 +91,7 @@ export default function BlogPage({ params }) {
     "@type": "BlogPosting",
     headline: blog.title,
     description: blog.description,
-    image: imageList, // string أو string[] لرابط/روابط الصور
+    image: imageList,
     datePublished: new Date(blog.publishedAt).toISOString(),
     dateModified: new Date(blog.updatedAt || blog.publishedAt).toISOString(),
     author: {
@@ -159,7 +160,7 @@ export default function BlogPage({ params }) {
         <BlogDetails blog={blog} slug={params.slug} />
         <div className="grid grid-cols-12  gap-y-8 lg:gap-8 sxl:gap-16 mt-8 px-5 md:px-10">
           <div className="col-span-12  lg:col-span-4">
-            <details
+            {/* <details
               className={twMerge(
                 "border border-solid border-accent/30 dark:border-light ",
                 "text-dark dark:text-light rounded-lg p-4 sticky top-5 max-h-[100vh] ",
@@ -206,9 +207,10 @@ export default function BlogPage({ params }) {
                   );
                 })}
               </ul>
-            </details>
+            </details> */}
+            <TOC toc={blog.toc} locale={locale} />
           </div>
-          <RenderMdx blog={blog} />
+          <RenderMdx blog={blog} locale={locale} />
         </div>
       </article>
     </>

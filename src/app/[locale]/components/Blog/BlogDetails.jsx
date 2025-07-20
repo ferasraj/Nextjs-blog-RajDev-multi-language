@@ -3,11 +3,24 @@ import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { slug } from "github-slugger";
-import { toCapitalizedName } from "@/src/utils/toCapitalizedName";
 import ViewCounter from "./ViewCounter";
+import { useLocale, useTranslations } from "next-intl";
+import { enUS, arSA } from "date-fns/locale";
+// import toArabicDigits from "../../../../../lib/toArabicDigits"; // نكتبه تحت
 
 const BlogDetails = ({ blog, slug: blogSlug }) => {
-  console.log(blogSlug);
+  const locale = useLocale();
+  const currentLocale = locale === "ar" ? arSA : enUS;
+  const minutes = blog.readingTime.minutesRounded;
+  const readingText =
+    locale === "ar"
+      ? // ? `${toArabicDigits(minutes)} دقيقة قراءة`
+        `${minutes} دقيقة قراءة`
+      : `${minutes} min read`;
+
+  const t = useTranslations("tags");
+  const translated = t(slug(blog.tags[0]), { default: blog.tags[0] });
+
   return (
     <div
       className={twMerge(
@@ -17,14 +30,16 @@ const BlogDetails = ({ blog, slug: blogSlug }) => {
       )}
     >
       <time className="m-3">
-        {format(parseISO(blog.publishedAt), "LLLL d, yyyy")}
+        {format(parseISO(blog.publishedAt), "LLLL d, yyyy", {
+          locale: currentLocale,
+        })}
       </time>
       <span className="m-3">
         <ViewCounter slug={blogSlug} />
       </span>
-      <div className="m-3">{blog.readingTime.text}</div>
+      <div className="m-3">{readingText}</div>
       <Link href={`/categories/${slug(blog.tags[0])}`} className="m-3">
-        #{toCapitalizedName(blog.tags[0])}
+        #{translated}
       </Link>
     </div>
   );

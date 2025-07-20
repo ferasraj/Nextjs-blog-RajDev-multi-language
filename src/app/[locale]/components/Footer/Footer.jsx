@@ -118,7 +118,7 @@ const Footer = ({ locale }) => {
           <span className="text-red-500 text-xl font-bold">&hearts;</span>{" "}
           {t("by")}{" "}
           <a
-            href="https://nextjs-blog-raj-dev-gfm9.vercel.app"
+            href="https://blog-rajmod-dev.app"
             className="underline"
             target="_blank"
           >

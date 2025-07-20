@@ -1,11 +1,13 @@
 "use client";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 
 const supabase = createClientComponentClient();
 
 const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
+  const t = useTranslations("Views");
   const hasViewed = useRef(false);
 
   const [views, setViews] = useState(0);
@@ -36,7 +38,6 @@ const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
     if (!noCount) {
       incrementView();
     }
-    // console.log("incrementView called");
   }, [slug, noCount]);
 
   useEffect(() => {
@@ -68,7 +69,11 @@ const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
   }, [slug]);
 
   if (showCount) {
-    return <div>{views} views</div>;
+    return (
+      <div>
+        {views} {t("views")}
+      </div>
+    );
   } else {
     return null;
   }

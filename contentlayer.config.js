@@ -97,9 +97,14 @@ const Blog = defineDocumentType(() => ({
       type: "json",
       resolve: safe(
         (doc) => {
-          return readingTime(doc.body.raw);
+          const result = readingTime(doc.body.raw);
+          return {
+            ...result,
+            // نشيل النص الكامل، نخلي الترجمة على الواجهة
+            minutesRounded: Math.ceil(result.minutes),
+          };
         },
-        { text: "0 min", minutes: 0, time: 0, words: 0 }
+        { minutesRounded: 0, minutes: 0, time: 0, words: 0 }
       ),
     },
 

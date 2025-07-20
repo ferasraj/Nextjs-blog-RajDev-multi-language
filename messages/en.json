@@ -106,5 +106,8 @@
     "NotFound": {
         "title": "Page Not Found!",
         "goHome": "Go To Home Page"
+    },
+    "Views": {
+        "views": "views"
     }
 }
