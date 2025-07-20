@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "@/components/ui/Dropdown-Menu";
+} from "@/components/ui/dropdown-menu";
 import { usePathname, useRouter } from "next/navigation";
 import { World } from "../Icons";
 import { twMerge } from "tailwind-merge";

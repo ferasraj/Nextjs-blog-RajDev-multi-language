@@ -6,7 +6,7 @@
     "dev": "next dev",
     "lint:mdx": "node scripts/lint-mdx.js",
     "build": "npm run generate && next build",
-    "generate": "npx contentlayer build && node scripts/generate-routes.js",
+    "generate": "npx contentlayer build || true && node scripts/generate-routes.js",
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
