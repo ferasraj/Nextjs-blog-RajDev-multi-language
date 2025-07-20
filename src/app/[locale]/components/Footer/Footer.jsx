@@ -118,7 +118,7 @@ const Footer = ({ locale }) => {
           <span className="text-red-500 text-xl font-bold">&hearts;</span>{" "}
           {t("by")}{" "}
           <a
-            href="https://blog-rajmod-dev.app"
+            href="https://blog-rajmod-dev.vercel.app"
             className="underline"
             target="_blank"
           >

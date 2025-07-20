@@ -1,6 +1,6 @@
 "use client";
 import { sortBlogs } from "@/src/utils";
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import React from "react";
 import BlogLayoutThree from "../Blog/BlogLayoutThree";
 import { twMerge } from "tailwind-merge";

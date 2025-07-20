@@ -104,7 +104,7 @@ export default function BlogPage({ params }) {
       name: "Raj Dev Blog",
       logo: {
         "@type": "ImageObject",
-        url: "https://blog-rajmod-dev.app/logo.png",
+        url: "https://https://blog-rajmod-dev.vercel.app/logo.png",
       },
     },
     mainEntityOfPage: {
