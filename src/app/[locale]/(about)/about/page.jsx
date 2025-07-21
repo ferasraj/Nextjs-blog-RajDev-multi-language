@@ -3,31 +3,65 @@ import AboutCoverSection from "../../components/About/AboutCoverSection";
 import Skills from "../../components/About/Skills";
 import { routing } from "@/src/i18n/routing";
 import { getTranslations } from "next-intl/server";
+import siteMetadata from "@/src/utils/siteMetaData";
 
-export const metadata = {
-  title: "About Me",
-  description: `Here are some details about my self.`,
-};
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
+
+  return {
+    title: {
+      template: `%s | ${siteMetadata.title[locale]}`,
+      default: locale === "ar" ? "عن المدونة" : "About Me",
+    },
+    description:
+      locale === "ar"
+        ? "تعرّف أكثر على المدونة، الكاتب، والرسالة وراء مدونة راج ديف."
+        : "Learn more about the blog, the author, and the mission behind Raj Dev Blog.",
+    alternates: {
+      canonical: `${siteMetadata.siteUrl}/${locale}/about`,
+      languages: {
+        en: `${siteMetadata.siteUrl}/en/about`,
+        ar: `${siteMetadata.siteUrl}/ar/about`,
+      },
+    },
+    openGraph: {
+      title: locale === "ar" ? "عن المدونة" : "About Me",
+      description:
+        locale === "ar"
+          ? "تعرّف أكثر على المدونة، الكاتب، والرسالة وراء مدونة راج ديف."
+          : "Learn more about the blog, the author, and the mission behind Raj Dev Blog.",
+      url: `${siteMetadata.siteUrl}/${locale}/about`,
+      siteName: siteMetadata.title[locale],
+      locale,
+      type: "website",
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: siteMetadata.title[locale],
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: locale === "ar" ? "عن المدونة" : "About Me",
+      description:
+        locale === "ar"
+          ? "تعرّف أكثر على المدونة، الكاتب، والرسالة وراء مدونة راج ديف."
+          : "Learn more about the blog, the author, and the mission behind Raj Dev Blog.",
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
+      creator: siteMetadata.authorTwitter || "@ferasraj",
+    },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
 export default async function AboutPage({ params }) {
-  // ✨ ضبط locale للسيرفر statically
   generateStaticParams(params.locale);
-
-  // const heads = headers();
-  // const host = heads.get("host"); // localhost:3000
-  // const protocol = heads.get("x-forwarded-proto") || "http"; // http or https
-  // const fullUrl = `${protocol}://${host}/${params.locale}/about`;
-
-  // console.log("🌐 Full URL:", fullUrl);
-
-  // if (!fullUrl) {
-  //   notFound();
-  // }
-
   const t = await getTranslations({
     locale: params.locale,
     namespace: "About",

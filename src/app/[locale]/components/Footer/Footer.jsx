@@ -37,7 +37,7 @@ const Footer = ({ locale }) => {
       <p
         className={twMerge(
           "mt-5 px-4 text-center w-full sm:w-3/5",
-          "font-light dark:font-medium text-sm sm:text-base",
+          "font-light dark:font-medium  text-sm sm:text-base ",
           locale === "ar" ? "font-tajawal" : ""
         )}
       >

@@ -4,46 +4,54 @@ import FeaturedPosts from "./components/Home/FeaturedPosts";
 import RecentPosts from "./components/Home/RecentPosts";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { routing } from "@/src/i18n/routing";
-import { hasLocale, useLocale } from "next-intl";
+import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata = {
-  title: "Raj Dev Blog | Frontend Articles, Tutorials & More",
-  description:
-    "Explore high-quality frontend development articles, tips, and tutorials on JavaScript, React, Tailwind CSS, and more. Stay up to date with modern web technologies.",
-  alternates: {
-    canonical: siteMetadata.siteUrl, // e.g., https://myblog.com/
-  },
-  openGraph: {
-    title: "Raj Dev Blog | Frontend Articles, Tutorials & More",
-    description:
-      "Explore high-quality frontend development articles, tips, and tutorials on JavaScript, React, Tailwind CSS, and more.",
-    url: siteMetadata.siteUrl,
-    siteName: "Raj Dev Blog",
-    type: "website",
-    locale: "en_US",
-    images: [
-      {
-        url: siteMetadata.socialBanner, // or any general cover image
-        width: 1200,
-        height: 630,
-        alt: "Raj Dev Blog Open Graph Banner",
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
+
+  return {
+    title: {
+      template: `%s | ${siteMetadata.title[locale]}`,
+      default: siteMetadata.title[locale],
+    },
+    description: siteMetadata.description[locale],
+    alternates: {
+      canonical: `${siteMetadata.siteUrl}/${locale}`,
+      languages: {
+        en: `${siteMetadata.siteUrl}/en`,
+        ar: `${siteMetadata.siteUrl}/ar`,
       },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Raj Dev Blog | Frontend Articles, Tutorials & More",
-    description:
-      "Explore high-quality frontend development articles, tips, and tutorials on JavaScript, React, Tailwind CSS, and more.",
-    images: [siteMetadata.socialBanner],
-    creator: siteMetadata.authorTwitter || "@your_twitter", // optional
-  },
-};
+    },
+    openGraph: {
+      title: siteMetadata.title[locale],
+      description: siteMetadata.description[locale],
+      url: siteMetadata.siteUrl,
+      siteName: siteMetadata.title[locale],
+      locale,
+      type: "website",
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: siteMetadata.title[locale],
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteMetadata.title[locale],
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
+      description: siteMetadata.description[locale],
+      creator: siteMetadata.authorTwitter || "@ferasraj",
+    },
+  };
+}
 
 export default function Home({ params }) {
   const locale = useLocale();

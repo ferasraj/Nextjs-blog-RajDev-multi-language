@@ -52,7 +52,7 @@ const AboutCoverSection = ({ locale }) => {
         <p
           className={twMerge(
             "font-medium capitalize mt-4 text-base",
-            locale === "ar" ? "font-tajawal font-semibold" : ""
+            locale === "ar" ? "font-tajawal" : ""
           )}
         >
           {t("mantraDescription")}{" "}

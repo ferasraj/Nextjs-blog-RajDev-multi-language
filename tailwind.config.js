@@ -52,10 +52,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        mr: ["var(--font-mr)"],
-        in: ["var(--font-in)"],
-        tajawal: ["var(--font-tajawal)"],
-        cairo: ["var(--font-cairo)"],
+        mr: ["Manrope", "sans-serif"],
+        in: ["Inter", "sans-serif"],
+        tajawal: ["Tajawal", "sans-serif"],
+        cairo: ["Cairo", "sans-serif"],
       },
       animation: {
         roll: "roll 24s linear infinite",

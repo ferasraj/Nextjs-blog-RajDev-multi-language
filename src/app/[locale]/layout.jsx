@@ -9,43 +9,59 @@ import { routing } from "@/src/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { themeScript } from "./components/Hooks/themeScript";
 import ClientProviders from "./components/Toast/ClientProviders";
-// import ClientProviders from "./ClientProviders";
 
-export const metadata = {
-  metadataBase: new URL(siteMetadata.siteUrl),
-  title: {
-    template: `%s | ${siteMetadata.title}`,
-    default: siteMetadata.title, // a default is required when creating a template
-  },
-  description: siteMetadata.description,
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
 
-  openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
-    url: siteMetadata.siteUrl,
-    siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-    locale: "en_US",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+  return {
+    metadataBase: new URL(siteMetadata.siteUrl),
+    title: {
+      template: `%s | ${siteMetadata.title[locale]}`,
+      default: siteMetadata.title[locale],
+    },
+    description: siteMetadata.description[locale],
+    openGraph: {
+      title: siteMetadata.title[locale],
+      description: siteMetadata.description[locale],
+      url: siteMetadata.siteUrl,
+      siteName: siteMetadata.title[locale],
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: siteMetadata.title[locale],
+        },
+      ],
+      locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteMetadata.title[locale],
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
+    },
+    robots: {
       index: true,
       follow: true,
-      noimageindex: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-  },
-};
+    alternates: {
+      canonical: `${siteMetadata.siteUrl}/${locale}`,
+      languages: {
+        en: `${siteMetadata.siteUrl}/en`,
+        ar: `${siteMetadata.siteUrl}/ar`,
+      },
+    },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -67,8 +83,7 @@ export default async function RootLayout({ children, params }) {
       suppressHydrationWarning
     >
       <head>
-        {/* 👇 سكربت الثيم لمنع الوميض */}
-        {/* <script dangerouslySetInnerHTML={{ __html: themeScript }} /> */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body
         className={twJoin(

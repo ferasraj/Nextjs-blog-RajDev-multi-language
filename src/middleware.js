@@ -5,7 +5,6 @@ export default createMiddleware({
   ...routing,
   locales: ["en", "ar"],
 
-  // اللغة الافتراضية
   defaultLocale: "en",
   localePrefix: "always",
 });

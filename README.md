@@ -1,104 +1,188 @@
-# Nextjs-blog-RajDev-multi-language
+# Raj Dev Blog
 
-A multilingual blog built with **Next.js**, **Tailwind CSS**, and **Contentlayer**, supporting **English and Arabic**.  
-This project is created and maintained by [Firas](https://github.com/ferasraj) as part of his learning journey in web development.
+A modern, multilingual personal blog built with **Next.js 13 App Router**, **TailwindCSS**, and **Contentlayer**. It is optimized for performance, accessibility, and SEO, and supports both **Arabic** and **English**.
 
----
-
-## 🌍 Features
-
-- 🌐 **Internationalization (i18n)** with support for Arabic and English using localized routing.
-- 📝 **Markdown blog posts** powered by Contentlayer.
-- ⚡ **Fast static generation** for SEO-friendly pages.
-- 🎨 **Tailwind CSS** for responsive and modern UI.
-- 🧠 Simple JSON-based route generation for categories and blog posts.
-- 🗺️ Automatically generated sitemap and robots.txt using `next-sitemap`.
+🔗 Live site: [https://blog-rajmod-dev.vercel.app](https://blog-rajmod-dev.vercel.app)
 
 ---
 
-## 🚀 Getting Started
+![Raj Dev Blog Banner](./public/social-banner.png)
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/ferasraj/Nextjs-blog-RajDev-multi-language.git
+---
 
-# 2. Navigate into the project
-cd Nextjs-blog-RajDev-multi-language
+## 📌 Features
 
-# 3. Install dependencies
-npm install
+- 🗂️ Content-driven with `Contentlayer`
+- 🌍 Multilingual (Arabic & English) with `next-intl`
+- 📄 SEO metadata via `generateMetadata()`
+- 🗺️ Dynamic Sitemap & Robots.txt via `next-sitemap`
+- 💬 Contact page with form integration (`formspree`)
+- 🎨 Fully styled with TailwindCSS & RTL support
+- 📖 MDX support with syntax highlighting
 
-# 4. Generate blog and category routes
-npm run generate
+---
 
-# 5. Run the development server
-npm run dev
+## 🧠 Metadata & SEO Strategy
+
+All pages generate structured metadata dynamically via the `generateMetadata()` function in each route:
+
+- Dynamic titles with `template` and localized `default`
+- Language-specific descriptions
+- Canonical URLs and `alternate` languages
+- Full OpenGraph + Twitter metadata
+- Localized `og:locale` for each language
+
+Example:
+
+```js
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
+  return {
+    title: {
+      template: `%s | ${siteMetadata.title[locale]}`,
+      default: siteMetadata.title[locale],
+    },
+    description: siteMetadata.description[locale],
+    alternates: {
+      canonical: `${siteMetadata.siteUrl}/${locale}`,
+      languages: {
+        en: `${siteMetadata.siteUrl}/en`,
+        ar: `${siteMetadata.siteUrl}/ar`,
+      },
+    },
+    openGraph: {
+      title: siteMetadata.title[locale],
+      description: siteMetadata.description[locale],
+      url: siteMetadata.siteUrl,
+      locale,
+      siteName: siteMetadata.title[locale],
+      type: "website",
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: siteMetadata.title[locale],
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteMetadata.title[locale],
+      description: siteMetadata.description[locale],
+      creator: siteMetadata.authorTwitter,
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
+    },
+  };
+}
 ```
 
-Now open [http://localhost:3000](http://localhost:3000) in your browser.
-
 ---
 
-## ⚙️ Scripts
+## 🗺️ Sitemap & Robots.txt
 
-| Command             | Description                                        |
-| ------------------- | -------------------------------------------------- |
-| `npm run dev`       | Start development server                           |
-| `npm run build`     | Build for production                               |
-| `npm run generate`  | Generate `blogRoutes.json` & `categoryRoutes.json` |
-| `npm run postbuild` | Generate sitemap after build                       |
+The sitemap is **dynamically generated** with `next-sitemap`. URLs are derived from the blog content:
 
----
+- `scripts/generate-routes.js` generates:
+  - `blogRoutes.json`
+  - `categoryRoutes.json`
+- These are used by `next-sitemap.config.js` to build the final `sitemap.xml` and `robots.txt`.
 
-## 🛠️ Technologies Used
-
-- [Next.js](https://nextjs.org/)
-- [React](https://react.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Contentlayer](https://contentlayer.dev/)
-- [next-sitemap](https://www.npmjs.com/package/next-sitemap)
-- [i18n routing](https://nextjs.org/docs/advanced-features/i18n-routing)
-
----
-
-## 📁 Folder Structure (Simplified)
-
-```
-.
-├── content/              # Markdown files for blog posts
-├── pages/                # Next.js pages with i18n
-├── scripts/              # Custom script to generate routes
-├── public/               # Static assets
-├── components/           # Reusable UI components
-├── styles/               # Global styles and Tailwind setup
-├── blogRoutes.json       # Generated blog route map
-├── categoryRoutes.json   # Generated category route map
-└── next-sitemap.config.js# Sitemap configuration
+```json
+"scripts": {
+  "generate": "npx contentlayer build || true && node scripts/generate-routes.js",
+  "postbuild": "next-sitemap"
+}
 ```
 
 ---
 
-## 📌 Roadmap
+## 📦 Notable Libraries Used
 
-- [ ] Add blog post search
-- [ ] Support more languages (e.g. French, Turkish)
-- [ ] Add dark mode
-- [ ] Deploy to Vercel
-
----
-
-## 🤝 Contributing
-
-This is a learning project, but PRs and suggestions are welcome!
+- `next`, `react`, `tailwindcss`
+- `contentlayer` — markdown/MDX source integration
+- `next-intl` — translation system with middleware
+- `next-sitemap` — SEO & sitemap automation
+- `formspree` — contact form submission handler
+- `@heroicons/react` — icon system
+- `reading-time`, `github-slugger` — for blog processing
 
 ---
 
-## 🧑‍💻 Author
+## 📁 Directory Structure (Simplified)
 
-**[Feras Raj]** – [ferasraj on GitHub](https://github.com/ferasraj)
+```
+/app
+  └── [locale]/
+      ├── layout.jsx
+      ├── page.jsx              → Home
+      ├── (about)/about/page.jsx       → About page
+      ├── (about)/contact/page.jsx     → Contact form
+      ├── blogs/[slug]/page.jsx
+      ├── categories/[slug]/page.jsx
+/scripts
+  ├── generate-routes.js       → Builds JSON for sitemap
+/content
+  ├── blog/                    → MDX blog posts
+/public
+  ├── fonts/
+  └── social-banner.png        → OG image
+```
 
 ---
 
-## 📄 License
+## 📬 Contact
 
-This project is open-source and free to use under the [MIT License](LICENSE).
+Use the contact form on the site, or email: `ferasraj@gmail.com`
+
+---
+
+## 🇸🇦 النسخة العربية
+
+مدونة شخصية حديثة تدعم اللغتين **العربية والإنجليزية** مبنية باستخدام **Next.js App Router** و **TailwindCSS**، ومهيأة لمحركات البحث ومرنة جدًا.
+
+🔗 رابط مباشر: [https://blog-rajmod-dev.vercel.app](https://blog-rajmod-dev.vercel.app)
+
+---
+
+### ✨ المميزات:
+
+- المحتوى يُدار بـ `Contentlayer`
+- دعم كامل للعربية مع `next-intl`
+- بيانات SEO ديناميكية
+- توليد sitemap و robots.txt تلقائي
+- نموذج تواصل يعمل عبر `formspree`
+- تصميم بـ Tailwind مع دعم RTL
+
+---
+
+### 🧠 طريقة توليد البيانات الوصفية (Metadata)
+
+يتم توليد العناوين والوصف والروابط الخاصة بكل لغة وصفحة تلقائيًا باستخدام `generateMetadata()` داخل كل صفحة، مما يضمن توافق كامل مع محركات البحث ودعم متعدد اللغات.
+
+---
+
+### 🗺️ خريطة الموقع و Robots.txt
+
+يتم توليدها تلقائيًا بعد البناء باستخدام:
+
+- سكربت `generate-routes.js` → لتوليد `blogRoutes.json` و `categoryRoutes.json`
+- مكتبة `next-sitemap` لقراءة تلك البيانات وتوليد الملفات النهائية
+
+---
+
+### 📦 المكتبات المهمة:
+
+- `next`, `react`, `tailwindcss`
+- `contentlayer`, `next-intl`, `next-sitemap`
+- `formspree`, `heroicons`, `reading-time`, `clsx`, وغيرها
+
+---
+
+### ✍️ تواصل
+
+عبر النموذج في الصفحة أو البريد الإلكتروني: `ferasraj@gmail.com`
+
+---
+
+> هذا المشروع تم تطويره بشغف لتقديم محتوى تقني عربي وإنجليزي عالي الجودة، مع تجربة مستخدم محترفة ومتجاوبة.

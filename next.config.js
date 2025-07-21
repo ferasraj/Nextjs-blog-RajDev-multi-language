@@ -11,7 +11,7 @@ const withNextIntl = createNextIntlPlugin({});
 const nextConfig = {
   compiler: {
     // removeConsole: process.env.NODE_ENV === "production",
-    removeConsole: true,
+    removeConsole: false,
   },
   experimental: {
     // appDir: true,

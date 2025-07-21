@@ -10,7 +10,6 @@ import { twMerge } from "tailwind-merge";
 import { routing } from "@/src/i18n/routing";
 import { notFound } from "next/navigation";
 
-// Create a dynamic route for each category using SSG (Static Site Generation) instead of Server-Side Rendering (SSR)
 export async function generateStaticParams() {
   const allCategories = getUniqueTags(allBlogs);
   const locales = routing.locales;
@@ -23,17 +22,17 @@ export async function generateStaticParams() {
   );
 }
 
-// (SEO) Metadata for title and description
 export async function generateMetadata({ params }) {
   const categoryName = toCapitalizedName(params.slug);
+  const locale = params.locale;
 
   return {
-    title: `Best ${categoryName} Tutorials & Articles | `,
+    title: `Best ${categoryName} Tutorials & Articles | ${siteMetadata.title[locale]}`,
     description: `Explore insightful blogs and tutorials on ${
       params.slug === "all" ? "web development" : categoryName
     }. Stay up to date with the latest in tech.`,
     alternates: {
-      canonical: "https://example.com/categories/web-development",
+      canonical: `${siteMetadata.siteUrl}/categories/${params.slug}`,
     },
     openGraph: {
       title: `Best ${categoryName} Tutorials & Articles | Raj Dev Blog`,
@@ -43,7 +42,8 @@ export async function generateMetadata({ params }) {
       url: `${siteMetadata.siteUrl}/categories/${params.slug}`,
       siteName: "Raj Dev Blog",
       type: "website",
-      images: [siteMetadata.socialBanner], // أو صورة ديناميكية
+      images: [siteMetadata.socialBanner],
+      locale,
     },
     twitter: {
       card: "summary_large_image",
@@ -52,15 +52,15 @@ export async function generateMetadata({ params }) {
         params.slug === "all" ? "web development" : categoryName
       }. Stay up to date with the latest in tech.`,
       images: [siteMetadata.socialBanner],
+      creator: siteMetadata.authorTwitter,
     },
   };
 }
 const CategoryPage = async ({ params }) => {
   const locale = params.locale;
-  // ✅ اجعل الصفحة static بدل ما تتولد ديناميكيًا
+
   generateStaticParams(locale);
 
-  // 1. اجلب التصنيفات
   const allCategories = getUniqueTags(allBlogs);
 
   if (
@@ -70,7 +70,6 @@ const CategoryPage = async ({ params }) => {
     notFound();
   }
 
-  // 2. فلتر المقالات حسب التصنيف
   const blogs = allBlogs
     .filter((blog) => {
       if (params.slug === "all") return true;

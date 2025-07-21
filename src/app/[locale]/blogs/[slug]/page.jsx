@@ -11,7 +11,6 @@ import { routing } from "@/src/i18n/routing";
 import TOC from "../../components/Blog/TOC";
 
 const locales = routing.locales;
-console.log(locales);
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
     allBlogs.map((blog) => ({
@@ -21,9 +20,9 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
+  const locale = params.locale;
   const blog = allBlogs.find(
-    (blog) =>
-      slug(blog.title[params.locale]) === decodeURIComponent(params.slug)
+    (blog) => slug(blog.title[locale]) === decodeURIComponent(params.slug)
   );
 
   if (!blog) {
@@ -45,14 +44,14 @@ export async function generateMetadata({ params }) {
   const authors = blog?.author ? [blog.author] : siteMetadata.author;
 
   return {
-    title: blog.title,
-    description: blog.description,
+    title: blog.title[locale],
+    description: blog.description[locale],
     openGraph: {
-      title: blog.title,
-      description: blog.description,
-      url: siteMetadata.siteUrl + blog.url,
-      siteName: siteMetadata.title,
-      locale: "en_US",
+      title: blog.title[locale],
+      description: blog.description[locale],
+      url: `${siteMetadata.siteUrl}/${locale}/blogs/${params.slug}`,
+      siteName: siteMetadata.title[locale],
+      locale,
       type: "website",
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
@@ -61,8 +60,8 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: blog.title,
-      description: blog.description,
+      title: blog.title[locale],
+      description: blog.description[locale],
       images: ogImages,
     },
   };
@@ -71,7 +70,7 @@ export default function BlogPage({ params }) {
   const locale = params.locale;
 
   const blog = allBlogs.find(
-    (blog) => slug(blog.title[locale]) === decodeURIComponent(params.slug) // ✅
+    (blog) => slug(blog.title[locale]) === decodeURIComponent(params.slug)
   );
 
   if (!blog) {
@@ -89,8 +88,8 @@ export default function BlogPage({ params }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: blog.title,
-    description: blog.description,
+    headline: blog.title[locale],
+    description: blog.description[locale],
     image: imageList,
     datePublished: new Date(blog.publishedAt).toISOString(),
     dateModified: new Date(blog.updatedAt || blog.publishedAt).toISOString(),
@@ -104,7 +103,7 @@ export default function BlogPage({ params }) {
       name: "Raj Dev Blog",
       logo: {
         "@type": "ImageObject",
-        url: "https://https://blog-rajmod-dev.vercel.app/logo.png",
+        url: `${siteMetadata.siteUrl}/logo.png`,
       },
     },
     mainEntityOfPage: {

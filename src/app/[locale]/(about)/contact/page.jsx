@@ -9,14 +9,59 @@ import { twJoin } from "tailwind-merge";
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
-export const metadata = {
-  title: "Contact Me",
-  description: `Contact me through the form available on this page or email me at ${siteMetadata.email}`,
-};
+export async function generateMetadata({ params }) {
+  const locale = params.locale;
+
+  return {
+    title: {
+      template: `%s | ${siteMetadata.title[locale]}`,
+      default: locale === "ar" ? "اتصل بي" : "Contact Me",
+    },
+    description:
+      locale === "ar"
+        ? `تواصل معي من خلال النموذج في هذه الصفحة أو عبر البريد الإلكتروني ${siteMetadata.email}`
+        : `Contact me through the form on this page or via email at ${siteMetadata.email}`,
+    alternates: {
+      canonical: `${siteMetadata.siteUrl}/${locale}/contact`,
+      languages: {
+        en: `${siteMetadata.siteUrl}/en/contact`,
+        ar: `${siteMetadata.siteUrl}/ar/contact`,
+      },
+    },
+    openGraph: {
+      title: locale === "ar" ? "اتصل بي" : "Contact Me",
+      description:
+        locale === "ar"
+          ? `تواصل معي من خلال النموذج في هذه الصفحة أو عبر البريد الإلكتروني ${siteMetadata.email}`
+          : `Contact me through the form on this page or via email at ${siteMetadata.email}`,
+      url: `${siteMetadata.siteUrl}/${locale}/contact`,
+      siteName: siteMetadata.title[locale],
+      locale,
+      type: "website",
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: siteMetadata.title[locale],
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: locale === "ar" ? "اتصل بي" : "Contact Me",
+      description:
+        locale === "ar"
+          ? `تواصل معي من خلال النموذج في هذه الصفحة أو عبر البريد الإلكتروني ${siteMetadata.email}`
+          : `Contact me through the form on this page or via email at ${siteMetadata.email}`,
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
+      creator: siteMetadata.authorTwitter || "@ferasraj",
+    },
+  };
+}
 
 const Contact = async ({ params }) => {
   const locale = params.locale;
-  // ✨ ضبط locale للسيرفر statically
   generateStaticParams(params.locale);
 
   const t = await getTranslations({

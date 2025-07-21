@@ -82,7 +82,7 @@ const ContactForm = ({ locale }) => {
       <textarea
         {...register("message")}
         placeholder={t("detailsPlaceholder")}
-        rows={2}
+        rows={3}
         className="w-full outline-none border-0 p-0 mx-0 focus:ring-0  
         placeholder:text-lg placeholder:p-10 overflow-hidden border-b border-gray 
         focus:border-gray bg-transparent"
