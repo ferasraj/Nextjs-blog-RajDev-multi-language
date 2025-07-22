@@ -1,9 +1,30 @@
 [
-  "/categories/productivity",
-  "/categories/code-quality",
-  "/categories/web-development",
-  "/categories/javascript",
-  "/categories/css",
-  "/categories/pwa",
-  "/categories/tailwind"
+  {
+    "ar": "/ar/categories/productivity",
+    "en": "/en/categories/productivity"
+  },
+  {
+    "ar": "/ar/categories/code-quality",
+    "en": "/en/categories/code-quality"
+  },
+  {
+    "ar": "/ar/categories/web-development",
+    "en": "/en/categories/web-development"
+  },
+  {
+    "ar": "/ar/categories/javascript",
+    "en": "/en/categories/javascript"
+  },
+  {
+    "ar": "/ar/categories/css",
+    "en": "/en/categories/css"
+  },
+  {
+    "ar": "/ar/categories/pwa",
+    "en": "/en/categories/pwa"
+  },
+  {
+    "ar": "/ar/categories/tailwind",
+    "en": "/en/categories/tailwind"
+  }
 ]

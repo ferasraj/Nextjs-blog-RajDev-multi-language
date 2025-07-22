@@ -1,89 +1,136 @@
-/** @type {import('next-sitemap').IConfig} */
-const blogRoutes = require("./blogRoutes.json");
-const categoryRoutes = require("./categoryRoutes.json");
-const siteMetadata = require("./src/utils/siteMetaData");
+// const siteMetadata = require('./src/utils/siteMetaData');
+// const blogRoutes = require('./blogRoutes.json');
+// const categoryRoutes = require('./categoryRoutes.json');
 
-const SITE_URL = process.env.SITE_URL || siteMetadata.siteUrl;
+// const SITE_URL = process.env.SITE_URL || siteMetadata.siteUrl;
 
-module.exports = {
-  siteUrl: SITE_URL,
-  generateRobotsTxt: true,
+// module.exports = {
+//   siteUrl: SITE_URL,
+//   generateRobotsTxt: true,
+//   sitemapSize: 7000,
+//   changefreq: 'daily',
+//   priority: 0.7,
+//   exclude: [
+//     '/server-sitemap.xml',
+//     '/manifest.webmanifest',
+//     '/google*.html',
+//     '*.png',
+//     '*.jpg',
+//     '*.jpeg',
+//     '*.gif',
+//     '*.svg',
+//     '*.ico',
+//     '*.webp'
+//   ],
+//   additionalPaths: async (config) => {
+//     const result = [];
 
-  alternateRefs: [
-    { href: `${SITE_URL}/en`, hreflang: "en" },
-    { href: `${SITE_URL}/ar`, hreflang: "ar" },
-  ],
+//     // Add main language pages
+//     result.push({
+//       loc: '/',
+//       changefreq: config.changefreq,
+//       priority: config.priority,
+//       lastmod: new Date().toISOString(),
+//       alternateRefs: [
+//         {
+//           href: `${SITE_URL}/ar`,
+//           hreflang: 'ar',
+//         },
+//         {
+//           href: `${SITE_URL}/en`,
+//           hreflang: 'en',
+//         },
+//       ],
+//     });
 
-  transform: async (config, path) => {
-    const parts = path.split("/").filter(Boolean);
-    const locales = ["en", "ar"];
-    const hasLocale = parts.length > 0 && locales.includes(parts[0]);
+//     result.push({
+//       loc: '/ar',
+//       changefreq: config.changefreq,
+//       priority: config.priority,
+//       lastmod: new Date().toISOString(),
+//       alternateRefs: [
+//         {
+//           href: `${SITE_URL}/en`,
+//           hreflang: 'en',
+//         },
+//       ],
+//     });
 
-    const loc = path;
-    const changefreq = config.changefreq;
-    const priority = config.priority;
-    const lastmod = config.autoLastmod ? new Date().toISOString() : undefined;
+//     result.push({
+//       loc: '/en',
+//       changefreq: config.changefreq,
+//       priority: config.priority,
+//       lastmod: new Date().toISOString(),
+//       alternateRefs: [
+//         {
+//           href: `${SITE_URL}/ar`,
+//           hreflang: 'ar',
+//         },
+//       ],
+//     });
 
-    if (hasLocale) {
-      const locale = parts[0];
-      const restPath = parts.slice(1).join("/");
-      const fixedAlternates = config.alternateRefs.map((alt) => ({
-        ...alt,
-        href: `${alt.href}/${restPath}`,
-        hrefIsAbsolute: true,
-      }));
-      return {
-        loc,
-        changefreq,
-        priority,
-        lastmod,
-        alternateRefs: fixedAlternates,
-      };
-    }
+//     // Add all blog paths with correct alternateRefs (without duplicating paths)
+//     blogRoutes.forEach(route => {
+//       // Arabic blog post
+//       result.push({
+//         loc: route.ar,
+//         changefreq: config.changefreq,
+//         priority: config.priority,
+//         lastmod: new Date().toISOString(),
+//         alternateRefs: [
+//           {
+//             href: `${SITE_URL}${route.en}`, // Only the English path, no duplication
+//             hreflang: 'en',
+//           },
+//         ],
+//       });
 
-    return {
-      loc,
-      changefreq,
-      priority,
-      lastmod,
-      alternateRefs: config.alternateRefs,
-    };
-  },
+//       // English blog post
+//       result.push({
+//         loc: route.en,
+//         changefreq: config.changefreq,
+//         priority: config.priority,
+//         lastmod: new Date().toISOString(),
+//         alternateRefs: [
+//           {
+//             href: `${SITE_URL}${route.ar}`, // Only the Arabic path, no duplication
+//             hreflang: 'ar',
+//           },
+//         ],
+//       });
+//     });
 
-  additionalPaths: async (config) => {
-    const paths = [];
+//     // Add all category paths with correct alternateRefs (without duplicating paths)
+//     categoryRoutes.forEach(route => {
+//       // Arabic category
+//       result.push({
+//         loc: route.ar,
+//         changefreq: config.changefreq,
+//         priority: config.priority,
+//         lastmod: new Date().toISOString(),
+//         alternateRefs: [
+//           {
+//             href: `${SITE_URL}${route.en}`, // Only the English path, no duplication
+//             hreflang: 'en',
+//           },
+//         ],
+//       });
 
-    // 🔹 المقالات
-    for (const route of blogRoutes) {
-      const segments = route.split("/").filter(Boolean);
-      if (segments[0] === "blogs" && segments[1] && segments[2]) {
-        const locale = segments[1];
-        const slug = segments.slice(2).join("/");
-        const correctPath = `/${locale}/blogs/${slug}`;
-        const transformed = await config.transform(config, correctPath);
-        paths.push(transformed);
-      }
-    }
+//       // English category
+//       result.push({
+//         loc: route.en,
+//         changefreq: config.changefreq,
+//         priority: config.priority,
+//         lastmod: new Date().toISOString(),
+//         alternateRefs: [
+//           {
+//             href: `${SITE_URL}${route.ar}`, // Only the Arabic path, no duplication
+//             hreflang: 'ar',
+//           },
+//         ],
+//       });
+//     });
 
-    // 🔹 التصنيفات
-    for (const route of categoryRoutes) {
-      for (const locale of ["en", "ar"]) {
-        const localePath = `/${locale}${
-          route.startsWith("/") ? route : `/${route}`
-        }`;
-        const transformed = await config.transform(config, localePath);
-        paths.push(transformed);
-      }
-    }
-
-    return paths;
-  },
-
-  robotsTxtOptions: {
-    policies: [{ userAgent: "*", allow: "/" }],
-    transformRobotsTxt: async (_, robotsTxt) => {
-      const hostLine = `# Host\nHost: ${SITE_URL}\n\n`;
-      return robotsTxt.replace(hostLine, "");
-    },
-  },
-};
+//     return result;
+//   },
+// };

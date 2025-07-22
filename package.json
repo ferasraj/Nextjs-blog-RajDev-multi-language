@@ -7,7 +7,8 @@
     "lint:mdx": "node scripts/lint-mdx.js",
     "build": "npm run generate && next build",
     "generate": "npx contentlayer build || true && node scripts/generate-routes.js",
-    "postbuild": "next-sitemap",
+    "postbuild": "node scripts/generate-sitemap.js",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
     "start": "next start",
     "lint": "next lint"
   },
@@ -57,6 +58,7 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-dir": "^4.0.0",
     "utf-8-validate": "^6.0.5",
+    "xml-formatter": "^3.6.6",
     "zod": "^4.0.5"
   },
   "devDependencies": {

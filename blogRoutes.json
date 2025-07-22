@@ -1,26 +1,50 @@
 [
-  "/blogs/ar/أتمتة-المهام-المتكررة-حيل-إنتاجية-للمطورين",
-  "/blogs/en/automating-repetitive-tasks-productivity-hacks-for-developers",
-  "/blogs/ar/أفضل-الممارسات-لكتابة-كود-نظيف-وسهل-الصيانة",
-  "/blogs/en/best-practices-for-writing-clean-and-maintainable-code",
-  "/blogs/ar/بناء-تطبيقات-ويب-تقدمية-جسر-يربط-بين-الويب-والجوال",
-  "/blogs/en/building-progressive-web-apps-bridging-the-gap-between-web-and-mobile",
-  "/blogs/ar/قوة-أطر-عمل-javascript-angular-مقابل-react-مقابل-vuejs",
-  "/blogs/en/the-power-of-javascript-frameworks-angular-vs-react-vs-vuejs",
-  "/blogs/ar/إتقان-تخطيط-css-grid-دليل-شامل",
-  "/blogs/en/mastering-css-grid-layout-a-comprehensive-guide",
-  "/blogs/ar/تقنيات-التأمل-والذهن-للمطورين-تحسين-التركيز-والوضوح-الذهني",
-  "/blogs/en/mindfulness-and-meditation-techniques-for-developers-improving-focus-and-clarity",
-  "/blogs/ar/صعود-تطبيقات-الويب-التقدمية-pwas-نقطة-تحول-في-تطوير-الويب",
-  "/blogs/en/the-rise-of-progressive-web-apps-pwas-a-game-changer-in-web-development",
-  "/blogs/ar/واجهات-restful-حجر-الأساس-لتطبيقات-الويب-الحديثة",
-  "/blogs/en/restful-apis-building-blocks-of-modern-web-applications",
-  "/blogs/ar/tailwind-css-كيفية-استخدامه-مع-javascript",
-  "/blogs/en/tailwind-css-how-to-use-with-javascript",
-  "/blogs/ar/أفضل-الممارسات-للوصولية-في-الويب-بناء-مواقع-شاملة",
-  "/blogs/en/best-practices-for-web-accessibility-building-inclusive-websites",
-  "/blogs/ar/الوصولية-في-الويب-تصميم-شامل-لكل-المستخدمين",
-  "/blogs/en/web-accessibility-inclusive-design-for-all-users",
-  "/blogs/ar/10-أدوات-أساسية-لزيادة-إنتاجية-مطوري-الويب",
-  "/blogs/en/10-essential-web-development-tools-for-productivity"
+  {
+    "ar": "/ar/blogs/أتمتة-المهام-المتكررة-حيل-إنتاجية-للمطورين",
+    "en": "/en/blogs/automating-repetitive-tasks-productivity-hacks-for-developers"
+  },
+  {
+    "ar": "/ar/blogs/أفضل-الممارسات-لكتابة-كود-نظيف-وسهل-الصيانة",
+    "en": "/en/blogs/best-practices-for-writing-clean-and-maintainable-code"
+  },
+  {
+    "ar": "/ar/blogs/بناء-تطبيقات-ويب-تقدمية-جسر-يربط-بين-الويب-والجوال",
+    "en": "/en/blogs/building-progressive-web-apps-bridging-the-gap-between-web-and-mobile"
+  },
+  {
+    "ar": "/ar/blogs/قوة-أطر-عمل-javascript-angular-مقابل-react-مقابل-vuejs",
+    "en": "/en/blogs/the-power-of-javascript-frameworks-angular-vs-react-vs-vuejs"
+  },
+  {
+    "ar": "/ar/blogs/إتقان-تخطيط-css-grid-دليل-شامل",
+    "en": "/en/blogs/mastering-css-grid-layout-a-comprehensive-guide"
+  },
+  {
+    "ar": "/ar/blogs/تقنيات-التأمل-والذهن-للمطورين-تحسين-التركيز-والوضوح-الذهني",
+    "en": "/en/blogs/mindfulness-and-meditation-techniques-for-developers-improving-focus-and-clarity"
+  },
+  {
+    "ar": "/ar/blogs/صعود-تطبيقات-الويب-التقدمية-pwas-نقطة-تحول-في-تطوير-الويب",
+    "en": "/en/blogs/the-rise-of-progressive-web-apps-pwas-a-game-changer-in-web-development"
+  },
+  {
+    "ar": "/ar/blogs/واجهات-restful-حجر-الأساس-لتطبيقات-الويب-الحديثة",
+    "en": "/en/blogs/restful-apis-building-blocks-of-modern-web-applications"
+  },
+  {
+    "ar": "/ar/blogs/tailwind-css-كيفية-استخدامه-مع-javascript",
+    "en": "/en/blogs/tailwind-css-how-to-use-with-javascript"
+  },
+  {
+    "ar": "/ar/blogs/أفضل-الممارسات-للوصولية-في-الويب-بناء-مواقع-شاملة",
+    "en": "/en/blogs/best-practices-for-web-accessibility-building-inclusive-websites"
+  },
+  {
+    "ar": "/ar/blogs/الوصولية-في-الويب-تصميم-شامل-لكل-المستخدمين",
+    "en": "/en/blogs/web-accessibility-inclusive-design-for-all-users"
+  },
+  {
+    "ar": "/ar/blogs/10-أدوات-أساسية-لزيادة-إنتاجية-مطوري-الويب",
+    "en": "/en/blogs/10-essential-web-development-tools-for-productivity"
+  }
 ]

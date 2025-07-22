@@ -1,5 +1,3 @@
-// scripts/generate-routes.js
-
 const fs = require("fs");
 const path = require("path");
 const { slug } = require("github-slugger");
@@ -22,14 +20,16 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// ✅ 1. توليد روابط المقالات باللغتين
+// ✅ 1. توليد روابط المقالات ككائنات { ar: ..., en: ... }
 const blogRoutes = [];
 
 allBlogs
   .filter((blog) => blog.isPublished)
   .forEach((blog) => {
-    if (blog.title?.ar) blogRoutes.push(`/blogs/ar/${slug(blog.title.ar)}`);
-    if (blog.title?.en) blogRoutes.push(`/blogs/en/${slug(blog.title.en)}`);
+    const route = {};
+    if (blog.title?.ar) route.ar = `/ar/blogs/${slug(blog.title.ar)}`;
+    if (blog.title?.en) route.en = `/en/blogs/${slug(blog.title.en)}`;
+    if (Object.keys(route).length > 0) blogRoutes.push(route);
   });
 
 fs.writeFileSync(
@@ -37,9 +37,9 @@ fs.writeFileSync(
   JSON.stringify(blogRoutes, null, 2),
   "utf-8"
 );
-console.log("✅ blogRoutes.json (ar + en) تم إنشاؤه بنجاح");
+console.log("✅ blogRoutes.json (كائنات ar + en) تم إنشاؤه بنجاح");
 
-// ✅ 2. توليد روابط التصنيفات بالإنجليزية فقط
+// ✅ 2. توليد روابط التصنيفات ككائنات { ar: ..., en: ... }
 function getUniqueTags(blogs) {
   const tags = new Set();
 
@@ -59,13 +59,14 @@ function getUniqueTags(blogs) {
   return Array.from(tags);
 }
 
-const categoryRoutes = getUniqueTags(allBlogs).map(
-  (tag) => `/categories/${tag}`
-);
+const categoryRoutes = getUniqueTags(allBlogs).map((tag) => ({
+  ar: `/ar/categories/${tag}`,
+  en: `/en/categories/${tag}`,
+}));
 
 fs.writeFileSync(
   path.join(outputDir, "categoryRoutes.json"),
   JSON.stringify(categoryRoutes, null, 2),
   "utf-8"
 );
-console.log("✅ categoryRoutes.json (en only) تم إنشاؤه بنجاح");
+console.log("✅ categoryRoutes.json (كائنات ar + en) تم إنشاؤه بنجاح");
