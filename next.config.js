@@ -8,11 +8,7 @@ const createNextIntlPlugin = require("next-intl/plugin");
 
 const withNextIntl = createNextIntlPlugin({});
 
-const withPWA = require("next-pwa")({
-  dest: "public",
-  register: true,
-  skipWaiting: true,
-});
+const withPWA = require("next-pwa")(require("./next-pwa.config.js"));
 
 const nextConfig = {
   compiler: {
@@ -49,7 +45,7 @@ const nextConfig = {
     ];
   },
 };
-
+console.log("✅ WITH PWA APPLIED");
 module.exports = withPWA(
   withContentlayer(
     withNextIntl({
