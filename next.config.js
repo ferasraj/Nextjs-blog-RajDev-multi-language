@@ -8,50 +8,52 @@ const createNextIntlPlugin = require("next-intl/plugin");
 
 const withNextIntl = createNextIntlPlugin({});
 
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+});
+
 const nextConfig = {
   compiler: {
-    // removeConsole: process.env.NODE_ENV === "production",
     removeConsole: false,
   },
-  experimental: {
-    // appDir: true,
-  },
   swcMinify: true,
-
-  // أضف هذا الجزء الجديد
-  // async headers() {
-  //   return [
-  //     {
-  //       source: "/:path*.xml",
-  //       headers: [
-  //         {
-  //           key: "Content-Type",
-  //           value: "text/xml; charset=utf-8",
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
-
-  // إضافة اختيارية لتحسين SEO
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "DENY",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
+          },
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+        ],
+      },
+    ];
+  },
 };
-// export default withContentlayer(withNextIntl({ ...nextConfig }));
-module.exports = withContentlayer(withNextIntl({ ...nextConfig }));
 
-// /** @type {import('next').NextConfig} */
-// const { withContentlayer } = require("next-contentlayer");
-// const createNextIntlPlugin = require("next-intl/plugin");
-
-// const withNextIntl = createNextIntlPlugin({});
-
-// const nextConfig = {
-//   compiler: {
-//     removeConsole: true,
-//   },
-//   experimental: {
-//     // appDir: true,
-//   },
-//   swcMinify: true,
-// };
-
-// module.exports = withContentlayer(withNextIntl({ ...nextConfig }));
+module.exports = withPWA(
+  withContentlayer(
+    withNextIntl({
+      ...nextConfig,
+    })
+  )
+);

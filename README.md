@@ -6,6 +6,8 @@ A modern, multilingual personal blog built with **Next.js 13 App Router**, **Tai
 
 ---
 
+## 🎨 Blog Image
+
 ![Raj Dev Blog Banner](./public/social-banner.png)
 
 ---
@@ -81,17 +83,17 @@ export async function generateMetadata({ params }) {
 
 ## 🗺️ Sitemap & Robots.txt
 
-The sitemap is **dynamically generated** with `next-sitemap`. URLs are derived from the blog content:
+The sitemap is **dynamically generated** with `generate-sitemap.js`. URLs are derived from the blog content:
 
 - `scripts/generate-routes.js` generates:
   - `blogRoutes.json`
   - `categoryRoutes.json`
-- These are used by `next-sitemap.config.js` to build the final `sitemap.xml` and `robots.txt`.
+- These are used by `generate-sitemap.js` to build the final `sitemap.xml` and `robots.txt`.
 
 ```json
 "scripts": {
   "generate": "npx contentlayer build || true && node scripts/generate-routes.js",
-  "postbuild": "next-sitemap"
+  "postbuild": "node scripts/generate-sitemap.js",
 }
 ```
 
@@ -102,7 +104,7 @@ The sitemap is **dynamically generated** with `next-sitemap`. URLs are derived f
 - `next`, `react`, `tailwindcss`
 - `contentlayer` — markdown/MDX source integration
 - `next-intl` — translation system with middleware
-- `next-sitemap` — SEO & sitemap automation
+- `generate-sitemap.js` — SEO & sitemap automation
 - `formspree` — contact form submission handler
 - `@heroicons/react` — icon system
 - `reading-time`, `github-slugger` — for blog processing

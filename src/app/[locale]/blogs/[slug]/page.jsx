@@ -110,6 +110,8 @@ export default function BlogPage({ params }) {
       "@type": "WebPage",
       "@id": `${siteMetadata.siteUrl}/blogs/${blog.slug}`,
     },
+    keywords: blog.tags.join(", "),
+    isAccessibleForFree: true,
   };
 
   return (
