@@ -9,8 +9,8 @@ import { routing } from "@/src/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { themeScript } from "./components/Hooks/themeScript";
 import ClientProviders from "./components/Toast/ClientProviders";
-import CheckServiceWorker from "./components/debug/CheckServiceWorker";
-import ManualSWRegister from "./components/debug/ManualSWRegister";
+// import CheckServiceWorker from "./components/debug/CheckServiceWorker";
+// import ManualSWRegister from "./components/debug/ManualSWRegister";
 
 export async function generateMetadata({ params }) {
   const locale = params.locale;
@@ -96,8 +96,8 @@ export default async function RootLayout({ children, params }) {
       >
         <NextIntlClientProvider locale={locale}>
           <ClientProviders>
-            <ManualSWRegister />
-            <CheckServiceWorker />
+            {/* <ManualSWRegister />
+            <CheckServiceWorker /> */}
             <Header locale={locale} />
             {children}
             <Footer locale={locale} />

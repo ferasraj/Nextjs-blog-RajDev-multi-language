@@ -9,6 +9,7 @@ import siteMetadata from "@/src/utils/siteMetaData";
 import { notFound } from "next/navigation";
 import { routing } from "@/src/i18n/routing";
 import TOC from "../../components/Blog/TOC";
+import SocialShare from "../../components/SocialShare";
 
 const locales = routing.locales;
 export async function generateStaticParams() {
@@ -212,6 +213,13 @@ export default function BlogPage({ params }) {
             <TOC toc={blog.toc} locale={locale} />
           </div>
           <RenderMdx blog={blog} locale={locale} />
+        </div>{" "}
+        <div className="mx-10">
+          <SocialShare
+            locale={locale}
+            title={blog.title[locale]} // حسب اللغة
+            url={`https://blog-rajmod-dev.vercel.app/${locale}/blogs/${params.slug}`}
+          />
         </div>
       </article>
     </>

@@ -17,7 +17,11 @@ import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import DropdownMenuLan from "../Elements/DropdownMenuLan";
+// import DropdownMenuLan from "../Elements/DropdownMenuLan";
+import dynamic from "next/dynamic";
+const DropdownMenuLan = dynamic(() => import("../Elements/DropdownMenuLan"), {
+  ssr: false,
+});
 
 const logoClassName =
   "inline-block h-6 w-6 mr-4 hover:scale-125 transition-all ease duration-200";
@@ -258,7 +262,7 @@ const Header = ({ locale }) => {
             logoClassName,
             "-translate-y-1 mx-1 -translate-x-[10px]"
           )}
-          aria-label="Reach out to me via Dribbble"
+          aria-label="Reach out to me via Instagram"
           target="_blank"
           rel="noopener noreferrer"
         >

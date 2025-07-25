@@ -10,6 +10,7 @@ const Logo = ({ locale }) => {
   return (
     <Link
       href={`/${locale}/`}
+      aria-label="Home"
       className="flex items-center  text-dark dark:text-light"
     >
       <div

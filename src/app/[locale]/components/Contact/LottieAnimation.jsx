@@ -1,14 +1,16 @@
 "use client";
 import React from "react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import Lottie from "lottie-react";
+import animationData from "./Animation-1751927266059.json"; // تأكد إن الملف جنب الكومبوننت
 
 const LottieAnimation = () => {
   return (
-    <DotLottieReact
-      src="/Animation-1751927266059.lottie"
-      autoplay
+    <Lottie
+      animationData={animationData}
       loop
-    ></DotLottieReact>
+      autoplay
+      style={{ width: "100%", maxWidth: "500px", height: "auto" }}
+    />
   );
 };
 

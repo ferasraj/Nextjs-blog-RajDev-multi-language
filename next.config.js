@@ -9,6 +9,9 @@ const createNextIntlPlugin = require("next-intl/plugin");
 const withNextIntl = createNextIntlPlugin({});
 
 const withPWA = require("next-pwa")(require("./next-pwa.config.js"));
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const nextConfig = {
   compiler: {
@@ -45,11 +48,12 @@ const nextConfig = {
     ];
   },
 };
-console.log("✅ WITH PWA APPLIED");
-module.exports = withPWA(
-  withContentlayer(
-    withNextIntl({
-      ...nextConfig,
-    })
+module.exports = withBundleAnalyzer(
+  withPWA(
+    withContentlayer(
+      withNextIntl({
+        ...nextConfig,
+      })
+    )
   )
 );

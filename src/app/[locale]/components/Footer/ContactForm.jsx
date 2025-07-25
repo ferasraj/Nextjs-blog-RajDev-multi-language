@@ -27,6 +27,7 @@ const ContactForm = () => {
     <>
       <form
         onSubmit={handleSubmit}
+        aria-labelledby="newsletter-heading"
         className={twMerge(
           "mt-6 w-fit sm:min-w-[384px] flex items-stretch",
           "bg-light dark:bg-dark p-1 sm:p-2 rounded mx-4 mb-2"

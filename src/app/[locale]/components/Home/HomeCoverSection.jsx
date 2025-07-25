@@ -29,6 +29,7 @@ const HomeCoverSection = ({ blogs, locale }) => {
           placeholder="blur"
           blurDataURL={blog.image.blurhashDataUrl}
           alt={blog.title}
+          style={{ aspectRatio: "16 / 9" }}
           fill
           className="w-full h-full object-center object-cover rounded-3xl -z-10"
           sizes="100vw"

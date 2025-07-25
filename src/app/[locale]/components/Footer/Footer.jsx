@@ -79,7 +79,7 @@ const Footer = ({ locale }) => {
             logoClassName,
             "-translate-y-1 mx-1 -translate-x-[10px]"
           )}
-          aria-label="Reach out to me via Dribbble"
+          aria-label="Reach out to me via Instagram"
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -1,10 +1,24 @@
 import React from "react";
 import ContactForm from "../../components/Contact/ContactForm";
-import LottieAnimation from "../../components/Contact/LottieAnimation";
+// import LottieAnimation from "../../components/Contact/LottieAnimation";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { routing } from "@/src/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { twJoin } from "tailwind-merge";
+import dynamic from "next/dynamic";
+
+// ✅ Lazy load مع إلغاء SSR وتحميل مؤقت
+const LottieAnimation = dynamic(
+  () => import("../../components/Contact/LottieAnimation"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[250px] w-full flex items-center justify-center ">
+        <span className="text-sm text-accent animate-pulse">Loading...</span>
+      </div>
+    ),
+  }
+);
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -62,7 +76,6 @@ export async function generateMetadata({ params }) {
 
 const Contact = async ({ params }) => {
   const locale = params.locale;
-  generateStaticParams(params.locale);
 
   const t = await getTranslations({
     locale: params.locale,
@@ -78,6 +91,7 @@ const Contact = async ({ params }) => {
         className={twJoin(
           "inline-block w-full sm:w-4/5 md:w-2/5 h-full ",
           "border-solid border-dark dark:border-light",
+          "flex items-center justify-center",
           locale === "ar" ? "md:border-l-2" : "md:border-r-2"
         )}
       >
@@ -87,7 +101,10 @@ const Contact = async ({ params }) => {
         className="w-full  md:w-3/5 flex flex-col items-start justify-center 
       px-5 xs:px-10 md:px-16 pb-8"
       >
-        <h2 className="font-bold capitalize  text-2xl xs:text-3xl sm:text-4xl">
+        <h2
+          aria-label={t("title")}
+          className="font-bold capitalize  text-2xl xs:text-3xl sm:text-4xl"
+        >
           {t("title")}
         </h2>
         <ContactForm locale={params.locale} />

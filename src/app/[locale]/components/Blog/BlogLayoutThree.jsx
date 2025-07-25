@@ -1,4 +1,3 @@
-"use client";
 import { format } from "date-fns";
 import { slug } from "github-slugger";
 import { useTranslations } from "next-intl";
