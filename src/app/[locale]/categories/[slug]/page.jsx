@@ -32,14 +32,18 @@ export async function generateMetadata({ params }) {
       params.slug === "all" ? "web development" : categoryName
     }. Stay up to date with the latest in tech.`,
     alternates: {
-      canonical: `${siteMetadata.siteUrl}/categories/${params.slug}`,
+      canonical: `${siteMetadata.siteUrl}/${locale}/categories/${params.slug}`,
+      languages: {
+        en: `${siteMetadata.siteUrl}/en/categories/${params.slug}`,
+        ar: `${siteMetadata.siteUrl}/ar/categories/${params.slug}`,
+      },
     },
     openGraph: {
       title: `Best ${categoryName} Tutorials & Articles | Raj Dev Blog`,
       description: `Explore insightful blogs and tutorials on ${
         params.slug === "all" ? "web development" : categoryName
       }. Stay up to date with the latest in tech.`,
-      url: `${siteMetadata.siteUrl}/categories/${params.slug}`,
+      url: `${siteMetadata.siteUrl}/${locale}/categories/${params.slug}`,
       siteName: "Raj Dev Blog",
       type: "website",
       images: [siteMetadata.socialBanner],

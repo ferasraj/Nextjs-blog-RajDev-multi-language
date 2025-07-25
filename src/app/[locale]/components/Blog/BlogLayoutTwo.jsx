@@ -66,7 +66,7 @@ const BlogLayoutTwo = ({ blog, locale }) => {
 
         <span
           className={twMerge(
-            "inline-block w-full capitalize text-gray",
+            "inline-block w-full capitalize text-gray dark:text-zinc-400",
             "dark:text0light/50 font-semibold  text-xs sm:text-base"
           )}
         >
